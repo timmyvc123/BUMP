@@ -1,24 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="BetaBump" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQO-jC-f6i">
+                                <rect key="frame" x="19" y="422.5" width="376" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="376" id="35S-LK-DsR"/>
+                                    <constraint firstAttribute="height" constant="61" id="Akb-Xe-oje"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="ConnectSpotify"/>
+                                <connections>
+                                    <action selector="connectSpotifyButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mbp-Br-MzO"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OQO-jC-f6i" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="j5h-Hj-q1o"/>
+                            <constraint firstItem="OQO-jC-f6i" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="mi4-hT-0xD"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="connectSpotifyButton" destination="OQO-jC-f6i" id="Edf-Hw-dv5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="111.59420289855073" y="100.44642857142857"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="9vd-Sw-30s">
+            <objects>
+                <viewController storyboardIdentifier="firstView" id="QVo-pM-Ghf" customClass="ProfileViewController" customModule="BetaBump" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VIp-Jf-N6y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You made it!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDW-vh-Dop">
+                                <rect key="frame" x="117" y="428" width="180" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hOw-ca-jVX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HDW-vh-Dop" firstAttribute="top" secondItem="hOw-ca-jVX" secondAttribute="top" constant="384" id="IM2-rd-EHZ"/>
+                            <constraint firstItem="HDW-vh-Dop" firstAttribute="centerX" secondItem="hOw-ca-jVX" secondAttribute="centerX" id="n78-Oa-TFh"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="user" id="7po-ex-NOu"/>
+                    <connections>
+                        <outlet property="usernameDisplayLabel" destination="HDW-vh-Dop" id="9Iu-wy-DmZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oyd-uX-LW5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2016" y="828"/>
+        </scene>
+        <!--Likes-->
+        <scene sceneID="Oif-oK-gIL">
+            <objects>
+                <viewController id="agf-vC-mNh" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Oc-cI-d4z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="U4T-Uf-YeN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Likes" image="heart.fill" catalog="system" id="AHG-GV-5b8"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="81W-jW-1Ll" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2016" y="-605"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="n8f-lS-pvU">
+            <objects>
+                <viewController id="nKs-Bd-s2H" customClass="MainScreenViewController" customModule="BetaBump" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wb8-iy-aDx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPW-vH-FOk">
+                                <rect key="frame" x="148" y="664" width="127" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="VQq-Yj-28O"/>
+                                    <constraint firstAttribute="width" constant="127" id="b7s-I6-R5R"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Press me!"/>
+                                <connections>
+                                    <action selector="musicButtonTapped:" destination="nKs-Bd-s2H" eventType="touchUpInside" id="PcO-xR-cSx"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3ev-vc-5NU">
+                                <rect key="frame" x="72" y="334" width="270" height="280"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="280" id="NAb-Rg-RkN"/>
+                                    <constraint firstAttribute="width" constant="270" id="rwn-xo-JOa"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNz-RN-7v4">
+                                <rect key="frame" x="20" y="141" width="383" height="84"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="383" id="RBz-L3-zj1"/>
+                                    <constraint firstAttribute="height" constant="84" id="pAy-Fi-n3C"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Bnc-cg-ME6"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3ev-vc-5NU" firstAttribute="centerX" secondItem="wb8-iy-aDx" secondAttribute="centerX" id="1mm-fV-1Ti"/>
+                            <constraint firstItem="fPW-vH-FOk" firstAttribute="centerY" secondItem="Bnc-cg-ME6" secondAttribute="centerY" constant="259.5" id="FAz-CK-jn5"/>
+                            <constraint firstItem="fPW-vH-FOk" firstAttribute="centerX" secondItem="Bnc-cg-ME6" secondAttribute="centerX" constant="4.5" id="M5R-C6-ZOW"/>
+                            <constraint firstItem="fPW-vH-FOk" firstAttribute="top" secondItem="3ev-vc-5NU" secondAttribute="bottom" constant="50" id="XGi-6X-QE2"/>
+                            <constraint firstItem="WNz-RN-7v4" firstAttribute="leading" secondItem="wb8-iy-aDx" secondAttribute="leadingMargin" id="jCc-gB-q2z"/>
+                            <constraint firstItem="WNz-RN-7v4" firstAttribute="top" secondItem="Bnc-cg-ME6" secondAttribute="top" constant="97" id="pqz-hC-aki"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Main" image="musicNote" id="77E-hy-zTJ"/>
+                    <connections>
+                        <outlet property="albumCoverImageView" destination="3ev-vc-5NU" id="wAo-Yb-GRW"/>
+                        <outlet property="musicButton" destination="fPW-vH-FOk" id="k3B-QG-AGJ"/>
+                        <outlet property="songNameLabel" destination="WNz-RN-7v4" id="bjh-kL-wIx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XGb-ea-rVi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2015.9420289855075" y="99.776785714285708"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="NBm-fo-zuI">
+            <objects>
+                <tabBarController storyboardIdentifier="mainView" automaticallyAdjustsScrollViewInsets="NO" id="1k1-0L-MZZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OQz-N3-uUt">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="nKs-Bd-s2H" kind="relationship" relationship="viewControllers" id="3DS-Ka-ttT"/>
+                        <segue destination="agf-vC-mNh" kind="relationship" relationship="viewControllers" id="Rgc-kA-fzk"/>
+                        <segue destination="QVo-pM-Ghf" kind="relationship" relationship="viewControllers" id="UFo-7V-lcg"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eTJ-VL-UAV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1105.7971014492755" y="99.776785714285708"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ConnectSpotify" width="806" height="141"/>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="musicNote" width="30" height="30"/>
+        <image name="user" width="30" height="30"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
