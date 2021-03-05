@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 import Kingfisher
 
 class MainScreenViewController: UIViewController {
@@ -13,19 +14,36 @@ class MainScreenViewController: UIViewController {
     @IBOutlet weak var songNameLabel: UILabel!
     @IBOutlet weak var albumCoverImageView: UIImageView!
     @IBOutlet weak var musicButton: UIButton!
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
     
     private let api = APIClient(configuration: .default)
+    let player = AudioPlayer.shared.player
+    var previewURL: URL? = nil
     var search: SearchTracks!
     var searchType: SpotifyType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        playButton.isHidden = true
 
         // Do any additional setup after loading the view.
     }
     
     @IBAction func musicButtonTapped(_ sender: Any) {
         fetchAndConfigureSearch()
+    }
+    
+    @IBAction func playButtonTapped(_ sender: Any) {
+        
+    }
+    
+    @IBAction func pauseButtonTapped(_ sender: Any) {
+        
+        if ((player?.isPlaying) != nil) {
+            print("playing")
+        }
+        player?.pause()
     }
     
     func fetchAndConfigureSearch() {
@@ -35,7 +53,7 @@ class MainScreenViewController: UIViewController {
         
         let token = (UserDefaults.standard.string(forKey: "token"))
 
-        api.call(request: .search(token: token!, q: getRandomSearch(), type: .track, limit: 1, offset: randomOffset) { [self] result in
+        api.call(request: .search(token: token!, q: getRandomSearch(), type: .track, market: "US", limit: 1, offset: randomOffset) { [self] result in
             
                 let tracks = result as? Result<SearchTracks, Error>
                 
@@ -58,6 +76,18 @@ class MainScreenViewController: UIViewController {
                         
                         let coverImageURL = newTrack.images[0].url
                         self.albumCoverImageView.kf.setImage(with: coverImageURL)
+                        
+                        previewURL = newTrack.previewUrl
+                        
+                        if previewURL == nil {
+                            player?.pause()
+                        } else {
+                            AudioPlayer.shared.downloadFileFromURL(url: previewURL!)
+                        }
+                        
+//                        if let previewURL = newTrack.previewUrl {
+//                            AudioPlayer.shared.downloadFileFromURL(url: previewURL)
+//                        }
                         
                         print("The new track is...", newTrack)
                     }

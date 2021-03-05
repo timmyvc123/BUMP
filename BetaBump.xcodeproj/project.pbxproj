@@ -13,7 +13,17 @@
 		246D2DA525DE4B60005C2EF1 /* SimpleTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */; };
 		246D2DA825DE4BCA005C2EF1 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA725DE4BCA005C2EF1 /* Playlist.swift */; };
 		246D2DAB25DE4BEF005C2EF1 /* UserTopTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DAA25DE4BEF005C2EF1 /* UserTopTracks.swift */; };
+		246E120425F2BE8A00AAACB0 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 246E120325F2BE8A00AAACB0 /* SDWebImage */; };
 		247BF62B25DF091900D2B547 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 247BF62A25DF091900D2B547 /* Kingfisher */; };
+		2480CA0825E57B52000F1FD5 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA0725E57B52000F1FD5 /* TestViewController.swift */; };
+		2480CA0E25E57CD7000F1FD5 /* ButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */; };
+		2480CA1125E57DD9000F1FD5 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA1025E57DD9000F1FD5 /* Button.swift */; };
+		2480CA1925E57FA8000F1FD5 /* TinderCardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA1825E57FA8000F1FD5 /* TinderCardContent.swift */; };
+		2480CA1E25E58058000F1FD5 /* CardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA1D25E58058000F1FD5 /* CardOverlay.swift */; };
+		2480CA2125E5805F000F1FD5 /* CardFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA2025E5805F000F1FD5 /* CardFooter.swift */; };
+		2480CA2425E5806A000F1FD5 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA2325E5806A000F1FD5 /* CardModel.swift */; };
+		2480CA2725E5808A000F1FD5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA2625E5808A000F1FD5 /* Extensions.swift */; };
+		2480CA2A25E5860A000F1FD5 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA2925E5860A000F1FD5 /* AudioPlayer.swift */; };
 		24D9300025DB035600630B06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D92FFF25DB035600630B06 /* AppDelegate.swift */; };
 		24D9300225DB035600630B06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D9300125DB035600630B06 /* SceneDelegate.swift */; };
 		24D9300725DB035600630B06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24D9300525DB035600630B06 /* Main.storyboard */; };
@@ -34,15 +44,26 @@
 		24D9304125DB7A5100630B06 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D9304025DB7A5100630B06 /* UserModel.swift */; };
 		24D9304425DB7ACB00630B06 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D9304325DB7ACB00630B06 /* LoginViewController.swift */; };
 		24D9304725DB944600630B06 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D9304625DB944600630B06 /* ProfileViewController.swift */; };
+		658AF5C7F1640B6E0BCDB64E /* Pods_BetaBump.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9A9152E58759F5A26DD094 /* Pods_BetaBump.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23E59720E2CA16D06948CD31 /* Pods-BetaBump.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetaBump.debug.xcconfig"; path = "Target Support Files/Pods-BetaBump/Pods-BetaBump.debug.xcconfig"; sourceTree = "<group>"; };
 		246D2D9A25DE2122005C2EF1 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		246D2D9D25DE3F22005C2EF1 /* SearchTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTracks.swift; sourceTree = "<group>"; };
 		246D2DA025DE3F91005C2EF1 /* ArtistTopTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTopTracks.swift; sourceTree = "<group>"; };
 		246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTrack.swift; sourceTree = "<group>"; };
 		246D2DA725DE4BCA005C2EF1 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		246D2DAA25DE4BEF005C2EF1 /* UserTopTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTopTracks.swift; sourceTree = "<group>"; };
+		2480CA0725E57B52000F1FD5 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStackView.swift; sourceTree = "<group>"; };
+		2480CA1025E57DD9000F1FD5 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		2480CA1825E57FA8000F1FD5 /* TinderCardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardContent.swift; sourceTree = "<group>"; };
+		2480CA1D25E58058000F1FD5 /* CardOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardOverlay.swift; sourceTree = "<group>"; };
+		2480CA2025E5805F000F1FD5 /* CardFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFooter.swift; sourceTree = "<group>"; };
+		2480CA2325E5806A000F1FD5 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		2480CA2625E5808A000F1FD5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		2480CA2925E5860A000F1FD5 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		24D92FFC25DB035600630B06 /* BetaBump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetaBump.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D92FFF25DB035600630B06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24D9300125DB035600630B06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +86,8 @@
 		24D9304025DB7A5100630B06 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		24D9304325DB7ACB00630B06 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		24D9304625DB944600630B06 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		A1EDCB1280E64D2E47192C52 /* Pods-BetaBump.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetaBump.release.xcconfig"; path = "Target Support Files/Pods-BetaBump/Pods-BetaBump.release.xcconfig"; sourceTree = "<group>"; };
+		EB9A9152E58759F5A26DD094 /* Pods_BetaBump.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BetaBump.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,21 +95,55 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				246E120425F2BE8A00AAACB0 /* SDWebImage in Frameworks */,
 				247BF62B25DF091900D2B547 /* Kingfisher in Frameworks */,
+				658AF5C7F1640B6E0BCDB64E /* Pods_BetaBump.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15611A16DE5B1FA9AE32A38C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EB9A9152E58759F5A26DD094 /* Pods_BetaBump.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		246D2D9625DE041B005C2EF1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				24D9304325DB7ACB00630B06 /* LoginViewController.swift */,
 				24D9304625DB944600630B06 /* ProfileViewController.swift */,
 				246D2D9A25DE2122005C2EF1 /* MainScreenViewController.swift */,
+				2480CA0A25E57CA8000F1FD5 /* Card Swipiing */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2480CA0A25E57CA8000F1FD5 /* Card Swipiing */ = {
+			isa = PBXGroup;
+			children = (
+				2480CA0725E57B52000F1FD5 /* TestViewController.swift */,
+				2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */,
+				2480CA1025E57DD9000F1FD5 /* Button.swift */,
+				2480CA2625E5808A000F1FD5 /* Extensions.swift */,
+				2480CA1B25E58049000F1FD5 /* Card */,
+			);
+			path = "Card Swipiing";
+			sourceTree = "<group>";
+		};
+		2480CA1B25E58049000F1FD5 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				2480CA1825E57FA8000F1FD5 /* TinderCardContent.swift */,
+				2480CA1D25E58058000F1FD5 /* CardOverlay.swift */,
+				2480CA2025E5805F000F1FD5 /* CardFooter.swift */,
+				2480CA2325E5806A000F1FD5 /* CardModel.swift */,
+			);
+			path = Card;
 			sourceTree = "<group>";
 		};
 		24D92FF325DB035600630B06 = {
@@ -94,6 +151,8 @@
 			children = (
 				24D92FFE25DB035600630B06 /* BetaBump */,
 				24D92FFD25DB035600630B06 /* Products */,
+				A3E9199D1C2D99C38F86E62B /* Pods */,
+				15611A16DE5B1FA9AE32A38C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +185,7 @@
 			children = (
 				24D9301525DB06E200630B06 /* Constants.swift */,
 				24D9301A25DB072E00630B06 /* Model.swift */,
+				2480CA2925E5860A000F1FD5 /* AudioPlayer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -161,6 +221,15 @@
 			path = "Network Model";
 			sourceTree = "<group>";
 		};
+		A3E9199D1C2D99C38F86E62B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				23E59720E2CA16D06948CD31 /* Pods-BetaBump.debug.xcconfig */,
+				A1EDCB1280E64D2E47192C52 /* Pods-BetaBump.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -168,9 +237,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24D9301025DB035700630B06 /* Build configuration list for PBXNativeTarget "BetaBump" */;
 			buildPhases = (
+				0223A42C6971A76E94E7C9B6 /* [CP] Check Pods Manifest.lock */,
 				24D92FF825DB035600630B06 /* Sources */,
 				24D92FF925DB035600630B06 /* Frameworks */,
 				24D92FFA25DB035600630B06 /* Resources */,
+				9A51CA3451C829A772E6ADFA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -179,6 +250,7 @@
 			name = BetaBump;
 			packageProductDependencies = (
 				247BF62A25DF091900D2B547 /* Kingfisher */,
+				246E120325F2BE8A00AAACB0 /* SDWebImage */,
 			);
 			productName = BetaBump;
 			productReference = 24D92FFC25DB035600630B06 /* BetaBump.app */;
@@ -209,6 +281,7 @@
 			mainGroup = 24D92FF325DB035600630B06;
 			packageReferences = (
 				247BF62925DF091900D2B547 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				246E120225F2BE8A00AAACB0 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 24D92FFD25DB035600630B06 /* Products */;
 			projectDirPath = "";
@@ -232,6 +305,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0223A42C6971A76E94E7C9B6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BetaBump-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A51CA3451C829A772E6ADFA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BetaBump/Pods-BetaBump-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BetaBump/Pods-BetaBump-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BetaBump/Pods-BetaBump-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		24D92FF825DB035600630B06 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -240,26 +355,35 @@
 				246D2D9E25DE3F22005C2EF1 /* SearchTracks.swift in Sources */,
 				24D9301B25DB072E00630B06 /* Model.swift in Sources */,
 				24D9303B25DB79CC00630B06 /* ExpiredTokens.swift in Sources */,
+				2480CA2125E5805F000F1FD5 /* CardFooter.swift in Sources */,
 				24D9300025DB035600630B06 /* AppDelegate.swift in Sources */,
 				24D9303625DB777700630B06 /* SpotifyType.swift in Sources */,
 				24D9302425DB07A500630B06 /* Header.swift in Sources */,
+				2480CA0E25E57CD7000F1FD5 /* ButtonStackView.swift in Sources */,
 				24D9303025DB07CF00630B06 /* Request.swift in Sources */,
 				24D9301E25DB076D00630B06 /* RequestBuilder.swift in Sources */,
 				24D9304725DB944600630B06 /* ProfileViewController.swift in Sources */,
+				2480CA2A25E5860A000F1FD5 /* AudioPlayer.swift in Sources */,
 				246D2DAB25DE4BEF005C2EF1 /* UserTopTracks.swift in Sources */,
+				2480CA1125E57DD9000F1FD5 /* Button.swift in Sources */,
+				2480CA0825E57B52000F1FD5 /* TestViewController.swift in Sources */,
 				24D9303E25DB79D400630B06 /* Tokens.swift in Sources */,
 				246D2DA125DE3F91005C2EF1 /* ArtistTopTracks.swift in Sources */,
 				24D9302725DB07AD00630B06 /* EndingPath.swift in Sources */,
+				2480CA1E25E58058000F1FD5 /* CardOverlay.swift in Sources */,
 				24D9304125DB7A5100630B06 /* UserModel.swift in Sources */,
+				2480CA2725E5808A000F1FD5 /* Extensions.swift in Sources */,
 				24D9300225DB035600630B06 /* SceneDelegate.swift in Sources */,
 				24D9301625DB06E200630B06 /* Constants.swift in Sources */,
 				24D9304425DB7ACB00630B06 /* LoginViewController.swift in Sources */,
 				24D9302A25DB07B800630B06 /* Parameters.swift in Sources */,
 				24D9302D25DB07C500630B06 /* SpotifyBaseURL.swift in Sources */,
+				2480CA1925E57FA8000F1FD5 /* TinderCardContent.swift in Sources */,
 				24D9303325DB07D800630B06 /* APIClient.swift in Sources */,
 				246D2DA825DE4BCA005C2EF1 /* Playlist.swift in Sources */,
 				246D2DA525DE4B60005C2EF1 /* SimpleTrack.swift in Sources */,
 				246D2D9B25DE2122005C2EF1 /* MainScreenViewController.swift in Sources */,
+				2480CA2425E5806A000F1FD5 /* CardModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +527,7 @@
 		};
 		24D9301125DB035700630B06 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23E59720E2CA16D06948CD31 /* Pods-BetaBump.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -422,6 +547,7 @@
 		};
 		24D9301225DB035700630B06 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1EDCB1280E64D2E47192C52 /* Pods-BetaBump.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -463,6 +589,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		246E120225F2BE8A00AAACB0 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.4;
+			};
+		};
 		247BF62925DF091900D2B547 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -474,6 +608,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		246E120325F2BE8A00AAACB0 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 246E120225F2BE8A00AAACB0 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		247BF62A25DF091900D2B547 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 247BF62925DF091900D2B547 /* XCRemoteSwiftPackageReference "Kingfisher" */;

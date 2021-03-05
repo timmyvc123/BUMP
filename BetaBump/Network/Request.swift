@@ -94,7 +94,7 @@ extension Request {
         }
     }
     
-    static func search(token: String, q: String, type: SpotifyType, limit: Int, offset: Int, completion: @escaping (Any) -> Void) -> Request {
+    static func search(token: String, q: String, type: SpotifyType, market: String, limit: Int, offset: Int, completion: @escaping (Any) -> Void) -> Request {
         
         let apiClient = APIClient(configuration: URLSessionConfiguration.default)
         
@@ -110,7 +110,7 @@ extension Request {
                         print("no refresh token returned")
                     case .success(let refresh):
                         UserDefaults.standard.set(refresh.accessToken, forKey: "token")
-                        apiClient.call(request: .search(token: refresh.accessToken, q: q, type: type, limit: limit, offset: offset, completion: completion))
+                        apiClient.call(request: .search(token: refresh.accessToken, q: q, type: type, market: market, limit: limit, offset: offset, completion: completion))
                     }
                 })!)
             }
@@ -119,7 +119,7 @@ extension Request {
         return Request.buildRequest(method: .get,
                              header: Header.GETHeader(accessToken: token).buildHeader(),
                              baseURL: SpotifyBaseURL.APICallBase.rawValue,
-                             path: EndingPath.search(q: q, type: type, limit: limit, offset: offset).buildPath()) { (result) in
+                             path: EndingPath.search(q: q, type: type, market: market, limit: limit, offset: offset).buildPath()) { (result) in
             
             switch type {
             case .track:

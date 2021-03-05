@@ -1,0 +1,15 @@
+//
+//  CardModel.swift
+//  BetaBump
+//
+//  Created by Timmy Van Cauwenberge on 2/23/21.
+//
+
+import UIKit
+
+struct CardModel {
+    var songName: String
+//  let age: Int
+    var artistName: String?
+  var imageView: UIImageView?
+}

@@ -5,11 +5,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "heart.png",
+      "filename" : "rachel@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "rachel@3x.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }
