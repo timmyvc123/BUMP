@@ -9,7 +9,6 @@ import UIKit
 
 struct CardModel {
     var songName: String
-//  let age: Int
     var artistName: String?
-  var imageView: UIImageView?
+    var imageView: UIImageView?
 }

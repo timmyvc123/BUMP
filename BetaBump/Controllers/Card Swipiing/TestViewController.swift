@@ -20,7 +20,7 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     private let api = APIClient(configuration: .default)
     let player = AudioPlayer.shared.player
-    var previewURL: URL? = nil
+    //    var previewURL: URL? = nil
     var search: SearchTracks!
     var searchType: SpotifyType!
     
@@ -51,8 +51,8 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         
         fetchAndConfigureSearch()
         
-//        cardModels.append(CardModel(songName: "Tim's Song", artistName: "Tim", image: UIImage(named: "rachel")))
-//        cardStack.appendCards(atIndices: [cardModels.count - 1])
+        //        cardModels.append(CardModel(songName: "Tim's Song", artistName: "Tim", image: UIImage(named: "rachel")))
+        //        cardStack.appendCards(atIndices: [cardModels.count - 1])
         
         configureNavigationBar()
         layoutButtonStackView()
@@ -118,17 +118,23 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     func fetchAndConfigureSearch() {
         
+        var newModels = [CardModel]()
+        
+        //        let oldModelsCount = self.cardModels.count
+        
         let randomOffset = Int.random(in: 0..<1000)
         
         let token = (UserDefaults.standard.string(forKey: "token"))
         
-        api.call(request: .search(token: token!, q: getRandomSearch(), type: .track, market: "US", limit: 5, offset: randomOffset) { [self] result in
+        api.call(request: .search(token: token!, q: getRandomSearch(), type: .track, market: "US", limit: 1, offset: randomOffset) { [self] result in
             
             let tracks = result as? Result<SearchTracks, Error>
             
             switch tracks {
             
             case .success(let something):
+                
+                let oldModelsCount = self.cardModels.count
                 
                 for track in something.tracks.items {
                     
@@ -140,13 +146,36 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                                                albumName: track.album.name)
                     
                     let coverImageURL = newTrack.images[0].url
+                    print(coverImageURL)
                     self.imageView.kf.setImage(with: coverImageURL)
-                                        
+                    
                     let songModel = CardModel(songName: newTrack.title, artistName: newTrack.artistName, imageView: imageView)
-                    cardModels.append(songModel)
-                    let newIndices = Array(self.cardModels.count-1..<self.cardModels.count)
+                    self.cardModels.append(songModel)
+                    
+                    let currentPlayingId = UserDefaults.standard.string(forKey: "current_playing_id")
+                    
+                    
+                    
+                    print("PREVIEW TRACK IS.... ", newTrack.previewUrl)
+                    
+                    let previewURL = newTrack.previewUrl
+                    
+                    DispatchQueue.main.async {
+                        if previewURL == nil {
+                            player?.stop()
+                        } else {
+                            AudioPlayer.shared.downloadFileFromURL(url: previewURL!)
+                        }
+                    }
+                }
+                
+                let newModelsCount = self.cardModels.count
+                let newIndices = Array(oldModelsCount..<newModelsCount)
+                
+                DispatchQueue.main.async {
                     self.cardStack.appendCards(atIndices: newIndices)
                 }
+                
             case .failure(let error):
                 print("search query failed bc... ", error)
             case .none:
@@ -158,27 +187,6 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     
     //MARK: Helpers
-    
-//    private func addCards() {
-//
-//
-//
-//        fetchAndConfigureSearch { [weak self] newModels in
-//            guard let strongSelf = self else { return }
-//
-//            let oldModelsCount = strongSelf.cardModels.count
-//            let newModelscount = oldModelsCount + newModels.count
-//
-//            DispatchQueue.main.async {
-//                strongSelf.cardModels.append(contentsOf: newModels)
-//
-//                let newIndices = Array(oldModelsCount..<newModelscount)
-//                strongSelf.cardStack.appendCards(atIndices: newIndices)
-//            }
-//        }
-//
-//        print("addCards() CARD MODELS...", cardModels)
-//    }
     
     func getRandomLetter(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyz"
@@ -218,6 +226,7 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     }
     
     func didSwipeAllCards(_ cardStack: SwipeCardStack) {
+        fetchAndConfigureSearch()
         print("Swiped all cards!")
     }
     
@@ -243,6 +252,7 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
             cardStack.swipe(.up, animated: true)
         case 4:
             cardStack.swipe(.right, animated: true)
+            player?.pause()
         case 5:
             cardStack.reloadData()
         default:

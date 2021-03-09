@@ -17,15 +17,20 @@ class MainScreenViewController: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     
-    private let api = APIClient(configuration: .default)
+    private let client = APIClient(configuration: .default)
     let player = AudioPlayer.shared.player
     var previewURL: URL? = nil
     var search: SearchTracks!
     var searchType: SpotifyType!
     
+    let token = (UserDefaults.standard.string(forKey: "token"))
+//    var user: UserModel!
+    var userID = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         playButton.isHidden = true
+        fetchUserInfo()
 
         // Do any additional setup after loading the view.
     }
@@ -51,9 +56,9 @@ class MainScreenViewController: UIViewController {
         let randomOffset = Int.random(in: 0..<1000)
         print("random NUmber is ", randomOffset)
         
-        let token = (UserDefaults.standard.string(forKey: "token"))
+//        let token = (UserDefaults.standard.string(forKey: "token"))
 
-        api.call(request: .search(token: token!, q: getRandomSearch(), type: .track, market: "US", limit: 1, offset: randomOffset) { [self] result in
+        client.call(request: .search(token: token!, q: getRandomSearch(), type: .track, market: "US", limit: 1, offset: randomOffset) { [self] result in
             
                 let tracks = result as? Result<SearchTracks, Error>
                 
@@ -98,6 +103,48 @@ class MainScreenViewController: UIViewController {
                     print("not decoding correctly")
                 }
             })
+    }
+    
+    private func fetchUserInfo() {
+        
+        var user: UserModel!
+        
+        client.call(request: .getUserInfo(token: token!, completion: { (result) in
+            
+            switch result {
+            case .failure(let error):
+                print("this is the error1", error)
+            case .success(let currUser):
+                DispatchQueue.main.async {
+                    self.createPlaylist(user: currUser)
+                    self.userID = currUser.id
+                    user = currUser
+                    print("Current user: ", currUser)
+                  print("This is the username:", user.displayName)
+                }
+            }
+            
+        }))
+    }
+
+
+    func createPlaylist(user: UserModel) {
+        
+        let name = "Test"
+        let description = "Description Test"
+        print("AFTER REQUEST", user)
+        
+        client.call(request: .createPlaylist(token: token!, id: user.id, name: name, public: true, description: description, completions: { (result) in
+            switch result {
+            case .failure(let error):
+                print("this is the error2", error)
+            case .success(let playlist):
+                
+                
+                print("Create Playlist")
+            }
+
+        }))
     }
     
     

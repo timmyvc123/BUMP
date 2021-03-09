@@ -61,6 +61,39 @@ extension Request {
         
     }
     
+    static func createPlaylist(token: String, id: String, name: String, public: Bool, description: String, completions: @escaping (Result<Playlist, Error>) -> Void) -> Request {
+
+        let apiClient = APIClient(configuration: URLSessionConfiguration.default)
+
+        apiClient.call(request: .checkExpiredToken(token: token, completion: { (expiredToken) in
+            switch expiredToken {
+            case .failure(_):
+                print("token still valid")
+            case .success(_):
+                print("token expired")
+                apiClient.call(request: refreshTokenToAccessToken(completion: { (refreshToken) in
+                    switch refreshToken {
+                    case .failure(_):
+                        print("no refresh token returned")
+                    case .success(let refresh):
+                        print(refresh.accessToken)
+                        UserDefaults.standard.set(refresh.accessToken, forKey: "token")
+                        apiClient.call(request: .createPlaylist(token: token, id: id, name: name, public: true, description: description, completions: completions))
+                    }
+                })!)
+            }
+        }))
+
+        return Request.buildRequest(method: .get,
+                                    header: Header.GETHeader(accessToken: token).buildHeader(),
+                                    baseURL: SpotifyBaseURL.APICallBase.rawValue,
+                                    path: EndingPath.createPlaylist(id: id).buildPath()) { (result) in
+
+                                        result.decoding(Playlist.self, completion: completions)
+
+        }
+
+    }
     
     static func getUserInfo(token: String, completion: @escaping (Result<UserModel, Error>) -> Void) -> Request {
         
