@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import Kingfisher
+import Spartan
 
 class MainScreenViewController: UIViewController {
     
@@ -24,15 +25,12 @@ class MainScreenViewController: UIViewController {
     var searchType: SpotifyType!
     
     let token = (UserDefaults.standard.string(forKey: "token"))
-//    var user: UserModel!
-    var userID = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         playButton.isHidden = true
         fetchUserInfo()
-
-        // Do any additional setup after loading the view.
+        Spartan.authorizationToken = token
     }
     
     @IBAction func musicButtonTapped(_ sender: Any) {
@@ -55,8 +53,6 @@ class MainScreenViewController: UIViewController {
         
         let randomOffset = Int.random(in: 0..<1000)
         print("random NUmber is ", randomOffset)
-        
-//        let token = (UserDefaults.standard.string(forKey: "token"))
 
         client.call(request: .search(token: token!, q: getRandomSearch(), type: .track, market: "US", limit: 1, offset: randomOffset) { [self] result in
             
@@ -65,10 +61,7 @@ class MainScreenViewController: UIViewController {
                 switch tracks {
                 
                 case .success(let something):
-                    
-//                    let newTrack = something
-                    
-                    
+
                     for track in something.tracks.items {
                         let newTrack = SimpleTrack(artistName: track.album.artists.first?.name,
                                                    id: track.id,
@@ -89,10 +82,6 @@ class MainScreenViewController: UIViewController {
                         } else {
                             AudioPlayer.shared.downloadFileFromURL(url: previewURL!)
                         }
-                        
-//                        if let previewURL = newTrack.previewUrl {
-//                            AudioPlayer.shared.downloadFileFromURL(url: previewURL)
-//                        }
                         
                         print("The new track is...", newTrack)
                     }
@@ -117,7 +106,7 @@ class MainScreenViewController: UIViewController {
             case .success(let currUser):
                 DispatchQueue.main.async {
                     self.createPlaylist(user: currUser)
-                    self.userID = currUser.id
+//                    self.userID = currUser.id
                     user = currUser
                     print("Current user: ", currUser)
                   print("This is the username:", user.displayName)
@@ -132,25 +121,20 @@ class MainScreenViewController: UIViewController {
         
         let name = "Test"
         let description = "Description Test"
-        print("AFTER REQUEST", user)
+//        print("AFTER REQUEST", user)
         
-        client.call(request: .createPlaylist(token: token!, id: user.id, name: name, public: true, description: description, completions: { (result) in
-            switch result {
-            case .failure(let error):
-                print("this is the error2", error)
-            case .success(let playlist):
-                
-                
-                print("Create Playlist")
-            }
+        let createPlaylist = Spartan.createPlaylist(userId: user.id, name: name, isPublic: true) { (playlist) in
+            print("PLAYLIST CREATED!!!!!!!!")
+        } failure: { (error) in
+            print("Error creating playlist: ", error)
+        }
 
-        }))
+        
+        
     }
     
     
     //MARK: Helpers
-    
-    
     
     func getRandomLetter(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyz"

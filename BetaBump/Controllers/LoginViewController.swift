@@ -22,10 +22,7 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func connectSpotifyButtonTapped(_ sender: Any) {
-        
         getSpotifyAccessCode()
-        
-
     }
     
     private func fetchToken() {

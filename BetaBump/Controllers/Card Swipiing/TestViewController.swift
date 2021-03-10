@@ -9,9 +9,11 @@ import UIKit
 import Shuffle_iOS
 import SDWebImage
 import UIKit
+import Spartan
 
 class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardStackDataSource, SwipeCardStackDelegate {
     
+    //MARK: - Vars
     
     private let cardStack = SwipeCardStack()
     
@@ -26,11 +28,11 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     var cardModels: [CardModel] = []
 
+    //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        createInfoButton()
         cardStack.delegate = self
         cardStack.dataSource = self
         buttonStackView.delegate = self
@@ -42,6 +44,8 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         layoutCardStackView()
         configureBackgroundGradient()
     }
+    
+    //MARK: - Configuration
     
     private func configureNavigationBar() {
         let backButton = UIBarButtonItem(title: "Back",
@@ -71,6 +75,8 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    //MARK: - Button Stack View
+    
     private func layoutButtonStackView() {
         view.addSubview(buttonStackView)
         buttonStackView.anchor(left: view.safeAreaLayoutGuide.leftAnchor,
@@ -89,28 +95,14 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                          right: view.safeAreaLayoutGuide.rightAnchor)
     }
     
+    //MARK: - Actions
+    
     @objc
     private func handleShift(_ sender: UIButton) {
         cardStack.shift(withDistance: sender.tag == 1 ? -1 : 1, animated: true)
     }
     
-    func createInfoButton() {
-        let infoButton = UIButton(frame: CGRect(x: 315,
-                                            y: 615,
-                                            width: 40,
-                                            height: 40))
-        infoButton.addTarget(self,
-                         action: #selector(infoButtonTapped),
-                         for: .touchUpInside)
-        infoButton.setImage(UIImage(named: "info"), for: .normal)
-        self.view.addSubview(infoButton)
-        UIWindow.key?.addSubview(infoButton)
-    }
-    
-    @objc func infoButtonTapped() {
-        print("info button tapped")
-    }
-
+    //MARK: API Request
     
     func fetchAndConfigureSearch() {
         
@@ -140,7 +132,7 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                     let coverImageURL = newTrack.images[0].url
                     print(coverImageURL)
                     self.imageView.kf.setImage(with: coverImageURL)
-//                    self.imageView.kf.setImage(with: URL(string: "https://i.scdn.co/image/ab67616d0000b273d9194aa18fa4c9362b47464f"))
+
                     imageView.contentMode = .scaleAspectFill
                     
                     let songModel = CardModel(songName: newTrack.title, artistName: newTrack.artistName, imageView: imageView)
@@ -176,6 +168,7 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                 print("not decoding correctly")
             }
         })
+        
         
     }
     
@@ -256,9 +249,9 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
             break
         }
     }
-    
-    
 }
+
+//MARK: - Extensions
 
 extension UIWindow {
     static var key: UIWindow? {
