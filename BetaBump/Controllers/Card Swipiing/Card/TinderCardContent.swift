@@ -20,7 +20,7 @@ class CardContentView: UIView {
     
     private var imageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.contentMode = .center
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -51,12 +51,12 @@ class CardContentView: UIView {
     
     func updateImagePosition() {
         zoom = min(zoom, 1)
-        imageView.frame = CGRect(x: 10, y: 10, width: 10, height: 10)
-//            bounds.applying(CGAffineTransform(scaleX: 1 + (1 - zoom), y: 1 + (1 - zoom)))
+        imageView.frame = bounds.applying(CGAffineTransform(scaleX: 1 + (1 - zoom), y: 1 + (1 - zoom)))
         imageView.center = CGPoint(x: bounds.midX, y: bounds.midY)
     }
     
     private func initialize() {
+        
         addSubview(backgroundView)
         backgroundView.anchorToSuperview()
         backgroundView.addSubview(imageView)
@@ -74,5 +74,6 @@ class CardContentView: UIView {
                                      width: bounds.width,
                                      height: heightFactor * bounds.height)
     }
+    
 }
 

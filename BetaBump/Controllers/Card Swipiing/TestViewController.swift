@@ -8,6 +8,7 @@
 import UIKit
 import Shuffle_iOS
 import SDWebImage
+import UIKit
 
 class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardStackDataSource, SwipeCardStackDelegate {
     
@@ -20,49 +21,27 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     private let api = APIClient(configuration: .default)
     let player = AudioPlayer.shared.player
-    //    var previewURL: URL? = nil
     var search: SearchTracks!
     var searchType: SpotifyType!
     
     var cardModels: [CardModel] = []
-    //        CardModel(songName: "Borderline",
-    //                  artistName: "Tame Impala",
-    //                  image: UIImage(named: "borderline")),
-    //        CardModel(songName: "Always Been You",
-    //                  artistName: "Quin XCII",
-    //                  image: UIImage(named: "alwaysbeenyou")),
-    //        CardModel(songName: "Lost",
-    //                  artistName: "Frank Ocean",
-    //                  image: UIImage(named: "lost")),
-    //        CardModel(songName: "Goodie Bag",
-    //                  artistName: "Still Woozy",
-    //                  image: UIImage(named: "goodiebag")),
-    //        CardModel(songName: "Rachel",
-    //                  artistName: "Interior Designer",
-    //                  image: UIImage(named: "rachel"))
-    //    ]
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        createInfoButton()
         cardStack.delegate = self
         cardStack.dataSource = self
         buttonStackView.delegate = self
         
         fetchAndConfigureSearch()
         
-        //        cardModels.append(CardModel(songName: "Tim's Song", artistName: "Tim", image: UIImage(named: "rachel")))
-        //        cardStack.appendCards(atIndices: [cardModels.count - 1])
-        
         configureNavigationBar()
         layoutButtonStackView()
         layoutCardStackView()
         configureBackgroundGradient()
     }
-    
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        addCards()
-    //    }
     
     private func configureNavigationBar() {
         let backButton = UIBarButtonItem(title: "Back",
@@ -115,12 +94,25 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         cardStack.shift(withDistance: sender.tag == 1 ? -1 : 1, animated: true)
     }
     
+    func createInfoButton() {
+        let infoButton = UIButton(frame: CGRect(x: 315,
+                                            y: 615,
+                                            width: 40,
+                                            height: 40))
+        infoButton.addTarget(self,
+                         action: #selector(infoButtonTapped),
+                         for: .touchUpInside)
+        infoButton.setImage(UIImage(named: "info"), for: .normal)
+        self.view.addSubview(infoButton)
+        UIWindow.key?.addSubview(infoButton)
+    }
+    
+    @objc func infoButtonTapped() {
+        print("info button tapped")
+    }
+
     
     func fetchAndConfigureSearch() {
-        
-        var newModels = [CardModel]()
-        
-        //        let oldModelsCount = self.cardModels.count
         
         let randomOffset = Int.random(in: 0..<1000)
         
@@ -148,6 +140,8 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                     let coverImageURL = newTrack.images[0].url
                     print(coverImageURL)
                     self.imageView.kf.setImage(with: coverImageURL)
+//                    self.imageView.kf.setImage(with: URL(string: "https://i.scdn.co/image/ab67616d0000b273d9194aa18fa4c9362b47464f"))
+                    imageView.contentMode = .scaleAspectFill
                     
                     let songModel = CardModel(songName: newTrack.title, artistName: newTrack.artistName, imageView: imageView)
                     self.cardModels.append(songModel)
@@ -205,9 +199,12 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         return randomSearch
     }
     
+    //MARK: - Shuffle Functions
+    
     func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
         let card = SwipeCard()
-        card.footerHeight = 80
+        card.content?.widthAnchor
+        card.footerHeight = 100
         card.swipeDirections = [.left, .up, .right]
         for direction in card.swipeDirections {
             card.setOverlay(CardOverlay(direction: direction), forDirection: direction)
@@ -263,63 +260,12 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
 }
 
-// MARK: Data Source + Delegates
-
-//extension TestViewController: ButtonStackViewDelegate, SwipeCardStackDataSource, SwipeCardStackDelegate {
-//
-//    func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
-//        let card = SwipeCard()
-//        card.footerHeight = 80
-//        card.swipeDirections = [.left, .up, .right]
-//        for direction in card.swipeDirections {
-//            card.setOverlay(CardOverlay(direction: direction), forDirection: direction)
-//        }
-//
-//        print("Track models ...... ", trackModels)
-//        print("Track Models length is...", trackModels.count)
-//
-//        let model = cardModels[index]
-//        card.content = CardContentView(withImage: model.image)
-//        card.footer = CardFooterView(withTitle: "\(model.songName)", subtitle: model.artistName)
-//
-//        return card
-//    }
-//
-//    func numberOfCards(in cardStack: SwipeCardStack) -> Int {
-//        print("numberOfCards...", cardModels.count)
-//        return cardModels.count
-//    }
-//
-//    func didSwipeAllCards(_ cardStack: SwipeCardStack) {
-//        print("Swiped all cards!")
-//    }
-//
-//    func cardStack(_ cardStack: SwipeCardStack, didUndoCardAt index: Int, from direction: SwipeDirection) {
-//        print("Undo \(direction) swipe on \(cardModels[index].songName)")
-//    }
-//
-//    func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
-//        print("Swiped \(direction) on \(cardModels[index].songName)")
-//    }
-//
-//    func cardStack(_ cardStack: SwipeCardStack, didSelectCardAt index: Int) {
-//        print("Card tapped")
-//    }
-//
-//    func didTapButton(button: Button) {
-//        switch button.tag {
-//        case 1:
-//            cardStack.undoLastSwipe(animated: true)
-//        case 2:
-//            cardStack.swipe(.left, animated: true)
-//        case 3:
-//            cardStack.swipe(.up, animated: true)
-//        case 4:
-//            cardStack.swipe(.right, animated: true)
-//        case 5:
-//            cardStack.reloadData()
-//        default:
-//            break
-//        }
-//    }
-//}
+extension UIWindow {
+    static var key: UIWindow? {
+        if #available(iOS 13, *) {
+            return UIApplication.shared.windows.first { $0.isKeyWindow }
+        } else {
+            return UIApplication.shared.keyWindow
+        }
+    }
+}

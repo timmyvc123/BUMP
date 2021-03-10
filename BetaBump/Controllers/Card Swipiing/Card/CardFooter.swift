@@ -42,7 +42,8 @@ class CardFooterView: UIView {
         }
 
         addSubview(infoButton)
-        infoButton.anchor(bottom: bottomAnchor, right: rightAnchor, paddingBottom: 20, paddingRight: 30)
+
+        infoButton.anchor(bottom: bottomAnchor, right: rightAnchor, paddingBottom: 60, paddingRight: 30)
     }
     
     private func initialize(title: String?, subtitle: String?) {
@@ -60,6 +61,7 @@ class CardFooterView: UIView {
         }
         
         label.attributedText = attributedText
+        label.adjustsFontSizeToFitWidth = true
         addSubview(label)
     }
     
@@ -69,6 +71,7 @@ class CardFooterView: UIView {
                              y: bounds.height - label.intrinsicContentSize.height - padding,
                              width: bounds.width - 2 * padding,
                              height: label.intrinsicContentSize.height)
+        
     }
 }
 
