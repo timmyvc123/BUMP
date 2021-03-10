@@ -8,7 +8,6 @@
 import Foundation
 
 struct APIClient {
-    //    static private let session = URLSession(configuration: URLSessionConfiguration.default)
     private let session: URLSession
     
     init(configuration: URLSessionConfiguration) {
@@ -26,14 +25,6 @@ struct APIClient {
             } else {
                 result = .success(data ?? Data())
             }
-            
-//                do {
-//                    let jsonObject = try JSONSerialization.jsonObject(with: data!, options: [])
-//                      print(jsonObject)
-//                } catch {
-//                    print("error with data task")
-//                    print(error.localizedDescription)
-//                }
             
             DispatchQueue.main.async {
                 request.completion(result)

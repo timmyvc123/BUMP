@@ -120,17 +120,14 @@ class MainScreenViewController: UIViewController {
     func createPlaylist(user: UserModel) {
         
         let name = "Test"
-        let description = "Description Test"
-//        print("AFTER REQUEST", user)
         
         let createPlaylist = Spartan.createPlaylist(userId: user.id, name: name, isPublic: true) { (playlist) in
-            print("PLAYLIST CREATED!!!!!!!!")
+            print("PLAYLIST CREATED")
+            
         } failure: { (error) in
             print("Error creating playlist: ", error)
         }
 
-        
-        
     }
     
     
