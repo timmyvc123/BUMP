@@ -5,12 +5,11 @@
       "scale" : "1x"
     },
     {
-      "filename" : "rachel@2x.jpg",
+      "filename" : "icons8-mute-100.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "rachel@3x.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

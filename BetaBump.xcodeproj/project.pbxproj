@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		246D2D9B25DE2122005C2EF1 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2D9A25DE2122005C2EF1 /* MainScreenViewController.swift */; };
 		246D2D9E25DE3F22005C2EF1 /* SearchTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2D9D25DE3F22005C2EF1 /* SearchTracks.swift */; };
 		246D2DA125DE3F91005C2EF1 /* ArtistTopTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA025DE3F91005C2EF1 /* ArtistTopTracks.swift */; };
 		246D2DA525DE4B60005C2EF1 /* SimpleTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */; };
@@ -15,7 +14,7 @@
 		246D2DAB25DE4BEF005C2EF1 /* UserTopTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DAA25DE4BEF005C2EF1 /* UserTopTracks.swift */; };
 		246EBFF125F6DBA50044F5AD /* CreatePlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246EBFF025F6DBA50044F5AD /* CreatePlaylist.swift */; };
 		247BF62B25DF091900D2B547 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 247BF62A25DF091900D2B547 /* Kingfisher */; };
-		2480CA0825E57B52000F1FD5 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA0725E57B52000F1FD5 /* TestViewController.swift */; };
+		2480CA0825E57B52000F1FD5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA0725E57B52000F1FD5 /* MainViewController.swift */; };
 		2480CA0E25E57CD7000F1FD5 /* ButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */; };
 		2480CA1125E57DD9000F1FD5 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA1025E57DD9000F1FD5 /* Button.swift */; };
 		2480CA1925E57FA8000F1FD5 /* TinderCardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA1825E57FA8000F1FD5 /* TinderCardContent.swift */; };
@@ -49,14 +48,13 @@
 
 /* Begin PBXFileReference section */
 		23E59720E2CA16D06948CD31 /* Pods-BetaBump.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetaBump.debug.xcconfig"; path = "Target Support Files/Pods-BetaBump/Pods-BetaBump.debug.xcconfig"; sourceTree = "<group>"; };
-		246D2D9A25DE2122005C2EF1 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		246D2D9D25DE3F22005C2EF1 /* SearchTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTracks.swift; sourceTree = "<group>"; };
 		246D2DA025DE3F91005C2EF1 /* ArtistTopTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTopTracks.swift; sourceTree = "<group>"; };
 		246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTrack.swift; sourceTree = "<group>"; };
 		246D2DA725DE4BCA005C2EF1 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		246D2DAA25DE4BEF005C2EF1 /* UserTopTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTopTracks.swift; sourceTree = "<group>"; };
 		246EBFF025F6DBA50044F5AD /* CreatePlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaylist.swift; sourceTree = "<group>"; };
-		2480CA0725E57B52000F1FD5 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		2480CA0725E57B52000F1FD5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStackView.swift; sourceTree = "<group>"; };
 		2480CA1025E57DD9000F1FD5 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		2480CA1825E57FA8000F1FD5 /* TinderCardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardContent.swift; sourceTree = "<group>"; };
@@ -117,7 +115,7 @@
 			children = (
 				24D9304325DB7ACB00630B06 /* LoginViewController.swift */,
 				24D9304625DB944600630B06 /* ProfileViewController.swift */,
-				246D2D9A25DE2122005C2EF1 /* MainScreenViewController.swift */,
+				2480CA0725E57B52000F1FD5 /* MainViewController.swift */,
 				2480CA0A25E57CA8000F1FD5 /* Card Swipiing */,
 			);
 			path = Controllers;
@@ -126,7 +124,6 @@
 		2480CA0A25E57CA8000F1FD5 /* Card Swipiing */ = {
 			isa = PBXGroup;
 			children = (
-				2480CA0725E57B52000F1FD5 /* TestViewController.swift */,
 				2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */,
 				2480CA1025E57DD9000F1FD5 /* Button.swift */,
 				2480CA2625E5808A000F1FD5 /* Extensions.swift */,
@@ -365,7 +362,7 @@
 				2480CA2A25E5860A000F1FD5 /* AudioPlayer.swift in Sources */,
 				246D2DAB25DE4BEF005C2EF1 /* UserTopTracks.swift in Sources */,
 				2480CA1125E57DD9000F1FD5 /* Button.swift in Sources */,
-				2480CA0825E57B52000F1FD5 /* TestViewController.swift in Sources */,
+				2480CA0825E57B52000F1FD5 /* MainViewController.swift in Sources */,
 				24D9303E25DB79D400630B06 /* Tokens.swift in Sources */,
 				246D2DA125DE3F91005C2EF1 /* ArtistTopTracks.swift in Sources */,
 				24D9302725DB07AD00630B06 /* EndingPath.swift in Sources */,
@@ -382,7 +379,6 @@
 				24D9303325DB07D800630B06 /* APIClient.swift in Sources */,
 				246D2DA825DE4BCA005C2EF1 /* Playlist.swift in Sources */,
 				246D2DA525DE4B60005C2EF1 /* SimpleTrack.swift in Sources */,
-				246D2D9B25DE2122005C2EF1 /* MainScreenViewController.swift in Sources */,
 				2480CA2425E5806A000F1FD5 /* CardModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

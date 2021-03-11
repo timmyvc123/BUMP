@@ -7,10 +7,10 @@
 
 import UIKit
 import Shuffle_iOS
-import UIKit
 import Spartan
+import Kingfisher
 
-class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardStackDataSource, SwipeCardStackDelegate {
+class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardStackDataSource, SwipeCardStackDelegate {
     
     //MARK: - Vars
     
@@ -19,11 +19,16 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     private let buttonStackView = ButtonStackView()
     
     let imageView = UIImageView()
+    let soundButton = UIButton(type: .custom)
     
     private let api = APIClient(configuration: .default)
     let player = AudioPlayer.shared.player
     var search: SearchTracks!
     var searchType: SpotifyType!
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    let token = (UserDefaults.standard.string(forKey: "token"))
     
     var cardModels: [CardModel] = []
 
@@ -32,8 +37,8 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        getTracks()
-        
+        Spartan.authorizationToken = token
+                
         cardStack.delegate = self
         cardStack.dataSource = self
         buttonStackView.delegate = self
@@ -44,6 +49,15 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         layoutButtonStackView()
         layoutCardStackView()
         configureBackgroundGradient()
+        setSoundOnButton()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if (!appDelegate.hasAlreadyLaunched) {
+            appDelegate.sethasAlreadyLaunched()
+            displayPlaylistCreationMessage()
+        }
     }
     
     //MARK: - Configuration
@@ -103,13 +117,43 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         cardStack.shift(withDistance: sender.tag == 1 ? -1 : 1, animated: true)
     }
     
+    @objc func soundButtonTapped() {
+        if ((soundButton.imageView?.image = UIImage(named: "soundOn")) != nil) {
+            soundButton.setImage(UIImage(named: "soundOff"), for: .normal)
+        }
+    }
+    
+    func setSoundOnButton() {
+        
+        soundButton.addTarget(self, action: #selector(soundButtonTapped), for: .touchUpInside)
+        if let image = UIImage(named: "soundOn") {
+            soundButton.setImage(image, for: .normal)
+            soundButton.imageView?.contentMode = .scaleAspectFit
+            soundButton.frame = CGRect(x: 325, y: 100, width: 37, height: 37)
+            soundButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+        }
+        view.addSubview(soundButton)
+        UIWindow.key?.addSubview(soundButton)
+    }
+    
+    func createSoundOffButton() {
+        let soundButton = UIButton(type: .custom)
+        soundButton.addTarget(self, action: #selector(soundButtonTapped), for: .touchUpInside)
+        if let image = UIImage(named: "soundOff") {
+            soundButton.setImage(image, for: .normal)
+            soundButton.imageView?.contentMode = .scaleAspectFit
+            soundButton.frame = CGRect(x: 325, y: 100, width: 37, height: 37)
+            soundButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+        }
+        view.addSubview(soundButton)
+        UIWindow.key?.addSubview(soundButton)
+    }
+    
     //MARK: API Request
     
     func fetchAndConfigureSearch() {
         
         let randomOffset = Int.random(in: 0..<1000)
-        
-        let token = (UserDefaults.standard.string(forKey: "token"))
         
         api.call(request: .search(token: token!, q: getRandomSearch(), type: .track, market: "US", limit: 1, offset: randomOffset) { [self] result in
             
@@ -139,12 +183,6 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                     let songModel = CardModel(songName: newTrack.title, artistName: newTrack.artistName, imageView: imageView)
                     self.cardModels.append(songModel)
                     
-                    let currentPlayingId = UserDefaults.standard.string(forKey: "current_playing_id")
-                    
-                    
-                    
-                    print("PREVIEW TRACK IS.... ", newTrack.previewUrl)
-                    
                     let previewURL = newTrack.previewUrl
                     
                     DispatchQueue.main.async {
@@ -169,8 +207,46 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                 print("not decoding correctly")
             }
         })
+    }
+    
+    func createPlaylist() {
         
+        let name = "BMP"
         
+        //get current user
+        _ = Spartan.getMe { (user) in
+            
+            //create playlist
+            _ = Spartan.createPlaylist(userId: user.id as! String, name: name, isPublic: true) { (playlist) in
+                
+                
+                
+            } failure: { (error) in
+                print("Error creating playlist: ", error)
+            }
+            
+        } failure: { (error) in
+            print("Getting User Info Error: ", error)
+        }
+    }
+    
+    func displayPlaylistCreationMessage() {
+        let message = "BMP would like to create a playlist on your Spotify account so your liked songs can be autmatically added to it."
+        
+        let alert = UIAlertController(title: "BMP Playlist", message: message, preferredStyle: .alert)
+        
+        let declineAction = UIAlertAction(title: "Decline", style: .destructive) { (action) in
+            print("Declined")
+        }
+        
+        let acceptAction = UIAlertAction(title: "Create", style: .default) { (action) in
+            self.createPlaylist()
+            print("Accepted")
+        }
+        
+        alert.addAction(declineAction)
+        alert.addAction(acceptAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     //MARK: Helpers
@@ -247,18 +323,6 @@ class TestViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
             cardStack.reloadData()
         default:
             break
-        }
-    }
-}
-
-//MARK: - Extensions
-
-extension UIWindow {
-    static var key: UIWindow? {
-        if #available(iOS 13, *) {
-            return UIApplication.shared.windows.first { $0.isKeyWindow }
-        } else {
-            return UIApplication.shared.keyWindow
         }
     }
 }

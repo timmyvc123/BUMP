@@ -77,7 +77,7 @@
         <!--Likes-->
         <scene sceneID="Oif-oK-gIL">
             <objects>
-                <viewController id="agf-vC-mNh" customClass="TestViewController" customModule="BetaBump" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="agf-vC-mNh" customClass="LikesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Oc-cI-d4z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,87 +93,14 @@
         <!--Main-->
         <scene sceneID="n8f-lS-pvU">
             <objects>
-                <viewController id="nKs-Bd-s2H" customClass="MainScreenViewController" customModule="BetaBump" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nKs-Bd-s2H" customClass="MainViewController" customModule="BetaBump" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wb8-iy-aDx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPW-vH-FOk">
-                                <rect key="frame" x="148" y="664" width="127" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="VQq-Yj-28O"/>
-                                    <constraint firstAttribute="width" constant="127" id="b7s-I6-R5R"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Press me!"/>
-                                <connections>
-                                    <action selector="musicButtonTapped:" destination="nKs-Bd-s2H" eventType="touchUpInside" id="PcO-xR-cSx"/>
-                                </connections>
-                            </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3ev-vc-5NU">
-                                <rect key="frame" x="72" y="334" width="270" height="280"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="280" id="NAb-Rg-RkN"/>
-                                    <constraint firstAttribute="width" constant="270" id="rwn-xo-JOa"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNz-RN-7v4">
-                                <rect key="frame" x="20" y="141" width="383" height="84"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="383" id="RBz-L3-zj1"/>
-                                    <constraint firstAttribute="height" constant="84" id="pAy-Fi-n3C"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dn-OP-G3p">
-                                <rect key="frame" x="162" y="709" width="98" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="98" id="r8f-XO-Z8B"/>
-                                    <constraint firstAttribute="height" constant="80" id="x93-7h-1Xf"/>
-                                </constraints>
-                                <state key="normal" image="pause.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="pauseButtonTapped:" destination="nKs-Bd-s2H" eventType="touchUpInside" id="gIx-Sa-FSA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2M-o6-zYl">
-                                <rect key="frame" x="162" y="709" width="98" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="YBK-Ge-YBd"/>
-                                    <constraint firstAttribute="width" constant="98" id="lDR-kZ-T6W"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
-                                <state key="normal" image="play.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="playButtonTapped:" destination="nKs-Bd-s2H" eventType="touchUpInside" id="SAs-mw-6X9"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Bnc-cg-ME6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="3ev-vc-5NU" firstAttribute="centerX" secondItem="wb8-iy-aDx" secondAttribute="centerX" id="1mm-fV-1Ti"/>
-                            <constraint firstItem="8dn-OP-G3p" firstAttribute="trailing" secondItem="wb8-iy-aDx" secondAttribute="trailingMargin" constant="-134" id="4m5-iC-nxb"/>
-                            <constraint firstItem="b2M-o6-zYl" firstAttribute="leading" secondItem="Bnc-cg-ME6" secondAttribute="leading" constant="162" id="5xj-7l-jYO"/>
-                            <constraint firstItem="fPW-vH-FOk" firstAttribute="centerY" secondItem="Bnc-cg-ME6" secondAttribute="centerY" constant="259.5" id="FAz-CK-jn5"/>
-                            <constraint firstItem="fPW-vH-FOk" firstAttribute="centerX" secondItem="Bnc-cg-ME6" secondAttribute="centerX" constant="4.5" id="M5R-C6-ZOW"/>
-                            <constraint firstItem="fPW-vH-FOk" firstAttribute="top" secondItem="3ev-vc-5NU" secondAttribute="bottom" constant="50" id="XGi-6X-QE2"/>
-                            <constraint firstItem="WNz-RN-7v4" firstAttribute="leading" secondItem="wb8-iy-aDx" secondAttribute="leadingMargin" id="jCc-gB-q2z"/>
-                            <constraint firstItem="8dn-OP-G3p" firstAttribute="baseline" secondItem="b2M-o6-zYl" secondAttribute="baseline" id="lSH-on-Nmi"/>
-                            <constraint firstItem="WNz-RN-7v4" firstAttribute="top" secondItem="Bnc-cg-ME6" secondAttribute="top" constant="97" id="pqz-hC-aki"/>
-                            <constraint firstItem="8dn-OP-G3p" firstAttribute="top" secondItem="3ev-vc-5NU" secondAttribute="bottom" constant="95" id="tYQ-IZ-bTn"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Main" image="musicNote" id="77E-hy-zTJ"/>
-                    <connections>
-                        <outlet property="albumCoverImageView" destination="3ev-vc-5NU" id="wAo-Yb-GRW"/>
-                        <outlet property="musicButton" destination="fPW-vH-FOk" id="k3B-QG-AGJ"/>
-                        <outlet property="pauseButton" destination="8dn-OP-G3p" id="Lbl-TC-6Gd"/>
-                        <outlet property="playButton" destination="b2M-o6-zYl" id="ecP-Do-ngR"/>
-                        <outlet property="songNameLabel" destination="WNz-RN-7v4" id="bjh-kL-wIx"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGb-ea-rVi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -204,8 +131,6 @@
         <image name="ConnectSpotify" width="806" height="141"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="musicNote" width="30" height="30"/>
-        <image name="pause.fill" catalog="system" width="116" height="128"/>
-        <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="user" width="30" height="30"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -26,11 +26,24 @@ class MainScreenViewController: UIViewController {
     
     let token = (UserDefaults.standard.string(forKey: "token"))
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         playButton.isHidden = true
-        fetchUserInfo()
         Spartan.authorizationToken = token
+//        fetchUserInfo()
+//        createPlaylist()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if (!appDelegate.hasAlreadyLaunched) {
+            appDelegate.sethasAlreadyLaunched()
+            displayPlaylistCreationMessage()
+        }
+        
     }
     
     @IBAction func musicButtonTapped(_ sender: Any) {
@@ -108,6 +121,9 @@ class MainScreenViewController: UIViewController {
 //                    self.createPlaylist(user: currUser)
 //                    self.userID = currUser.id
                     user = currUser
+                    
+                    
+                    
                     print("Current user: ", currUser)
                   print("This is the username:", user.displayName)
                 }
@@ -117,22 +133,48 @@ class MainScreenViewController: UIViewController {
     }
 
 
-    func createPlaylist(user: UserModel) {
+    func createPlaylist() {
         
-        let name = "Test"
+        let name = "BMP"
         
-        let createPlaylist = Spartan.createPlaylist(userId: user.id, name: name, isPublic: true) { (playlist) in
+        //get current user
+        let getUser = Spartan.getMe { (user) in
             
-            print("PLAYLIST CREATED")
+            //create playlist
+            let createPlaylist = Spartan.createPlaylist(userId: user.id as! String, name: name, isPublic: true) { (playlist) in
+                
+                print("PLAYLIST CREATED")
+                
+            } failure: { (error) in
+                print("Error creating playlist: ", error)
+            }
             
         } failure: { (error) in
-            print("Error creating playlist: ", error)
+            print("Getting User Info Error: ", error)
         }
-
     }
     
     
     //MARK: Helpers
+    
+    func displayPlaylistCreationMessage() {
+        let message = "BMP would like to create a playlist on your Spotify account so your liked songs can be autmatically added to it."
+        
+        let alert = UIAlertController(title: "BMP Playlist", message: message, preferredStyle: .alert)
+        
+        let declineAction = UIAlertAction(title: "Decline", style: .destructive) { (action) in
+            print("Declined")
+        }
+        
+        let acceptAction = UIAlertAction(title: "Create", style: .default) { (action) in
+            self.createPlaylist()
+            print("Accepted")
+        }
+        
+        alert.addAction(declineAction)
+        alert.addAction(acceptAction)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     func getRandomLetter(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyz"

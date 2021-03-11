@@ -55,7 +55,28 @@ class CardContentView: UIView {
         imageView.center = CGPoint(x: bounds.midX, y: bounds.midY)
     }
     
+    @objc func soundButtonTapped() {
+        print("sound button tapped")
+    }
+    
     private func initialize() {
+        
+//        let soundButton = UIButton(type: .custom)
+//        soundButton.addTarget(self, action: #selector(soundButtonTapped), for: .touchUpInside)
+//        if let image = UIImage(named: "fire") {
+//            soundButton.setImage(image, for: .normal)
+//            soundButton.imageView?.contentMode = .scaleAspectFit
+////            soundButton.frame = CGRect(x: 100, y: 150, width: 37, height: 37)
+//            soundButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+//        }
+//        soundButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+//        soundButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+//        soundButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        soundButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+//        addSubview(soundButton)
+////        soundButton.anchor(bottom: bottomAnchor, right: rightAnchor, paddingBottom: 60, paddingRight: 30)
+//        UIWindow.key?.addSubview(soundButton)
+        
         
         addSubview(backgroundView)
         backgroundView.anchorToSuperview()
@@ -77,3 +98,14 @@ class CardContentView: UIView {
     
 }
 
+//MARK: - Extensions
+
+extension UIWindow {
+    static var key: UIWindow? {
+        if #available(iOS 13, *) {
+            return UIApplication.shared.windows.first { $0.isKeyWindow }
+        } else {
+            return UIApplication.shared.keyWindow
+        }
+    }
+}
