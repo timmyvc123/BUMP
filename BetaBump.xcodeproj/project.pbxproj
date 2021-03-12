@@ -12,7 +12,6 @@
 		246D2DA525DE4B60005C2EF1 /* SimpleTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */; };
 		246D2DA825DE4BCA005C2EF1 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA725DE4BCA005C2EF1 /* Playlist.swift */; };
 		246D2DAB25DE4BEF005C2EF1 /* UserTopTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DAA25DE4BEF005C2EF1 /* UserTopTracks.swift */; };
-		246EBFF125F6DBA50044F5AD /* CreatePlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246EBFF025F6DBA50044F5AD /* CreatePlaylist.swift */; };
 		247BF62B25DF091900D2B547 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 247BF62A25DF091900D2B547 /* Kingfisher */; };
 		2480CA0825E57B52000F1FD5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA0725E57B52000F1FD5 /* MainViewController.swift */; };
 		2480CA0E25E57CD7000F1FD5 /* ButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */; };
@@ -53,7 +52,6 @@
 		246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTrack.swift; sourceTree = "<group>"; };
 		246D2DA725DE4BCA005C2EF1 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		246D2DAA25DE4BEF005C2EF1 /* UserTopTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTopTracks.swift; sourceTree = "<group>"; };
-		246EBFF025F6DBA50044F5AD /* CreatePlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaylist.swift; sourceTree = "<group>"; };
 		2480CA0725E57B52000F1FD5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStackView.swift; sourceTree = "<group>"; };
 		2480CA1025E57DD9000F1FD5 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -191,7 +189,6 @@
 			isa = PBXGroup;
 			children = (
 				24D9301D25DB076D00630B06 /* RequestBuilder.swift */,
-				246EBFF025F6DBA50044F5AD /* CreatePlaylist.swift */,
 				24D9302325DB07A500630B06 /* Header.swift */,
 				24D9302625DB07AD00630B06 /* EndingPath.swift */,
 				24D9302925DB07B800630B06 /* Parameters.swift */,
@@ -367,7 +364,6 @@
 				246D2DA125DE3F91005C2EF1 /* ArtistTopTracks.swift in Sources */,
 				24D9302725DB07AD00630B06 /* EndingPath.swift in Sources */,
 				2480CA1E25E58058000F1FD5 /* CardOverlay.swift in Sources */,
-				246EBFF125F6DBA50044F5AD /* CreatePlaylist.swift in Sources */,
 				24D9304125DB7A5100630B06 /* UserModel.swift in Sources */,
 				2480CA2725E5808A000F1FD5 /* Extensions.swift in Sources */,
 				24D9300225DB035600630B06 /* SceneDelegate.swift in Sources */,

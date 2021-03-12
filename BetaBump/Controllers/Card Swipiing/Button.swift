@@ -14,7 +14,6 @@ class Button: PopBounceButton {
     adjustsImageWhenHighlighted = false
     backgroundColor = .white
     layer.masksToBounds = true
-    print("Button")
   }
 
   required init?(coder aDecoder: NSCoder) {

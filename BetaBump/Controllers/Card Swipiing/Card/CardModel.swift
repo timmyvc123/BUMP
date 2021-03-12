@@ -11,4 +11,5 @@ struct CardModel {
     var songName: String
     var artistName: String?
     var imageView: UIImageView?
+    var URI: String
 }

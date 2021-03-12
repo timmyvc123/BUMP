@@ -15,6 +15,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     //MARK: - Vars
     
     private let cardStack = SwipeCardStack()
+    var simplifiedTrack: SimpleTrack!
     
     private let buttonStackView = ButtonStackView()
     
@@ -31,14 +32,16 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     let token = (UserDefaults.standard.string(forKey: "token"))
     
     var cardModels: [CardModel] = []
-
+    
+    var listId: Any?
+    
     //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Spartan.authorizationToken = token
-                
+        
         cardStack.delegate = self
         cardStack.dataSource = self
         buttonStackView.delegate = self
@@ -49,7 +52,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         layoutButtonStackView()
         layoutCardStackView()
         configureBackgroundGradient()
-        setSoundOnButton()
+//        createSoundButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -118,35 +121,10 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     }
     
     @objc func soundButtonTapped() {
-        if ((soundButton.imageView?.image = UIImage(named: "soundOn")) != nil) {
-            soundButton.setImage(UIImage(named: "soundOff"), for: .normal)
-        }
-    }
-    
-    func setSoundOnButton() {
-        
-        soundButton.addTarget(self, action: #selector(soundButtonTapped), for: .touchUpInside)
-        if let image = UIImage(named: "soundOn") {
-            soundButton.setImage(image, for: .normal)
-            soundButton.imageView?.contentMode = .scaleAspectFit
-            soundButton.frame = CGRect(x: 325, y: 100, width: 37, height: 37)
-            soundButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
-        }
-        view.addSubview(soundButton)
-        UIWindow.key?.addSubview(soundButton)
-    }
-    
-    func createSoundOffButton() {
-        let soundButton = UIButton(type: .custom)
-        soundButton.addTarget(self, action: #selector(soundButtonTapped), for: .touchUpInside)
-        if let image = UIImage(named: "soundOff") {
-            soundButton.setImage(image, for: .normal)
-            soundButton.imageView?.contentMode = .scaleAspectFit
-            soundButton.frame = CGRect(x: 325, y: 100, width: 37, height: 37)
-            soundButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
-        }
-        view.addSubview(soundButton)
-        UIWindow.key?.addSubview(soundButton)
+//        if ((soundButton.imageView?.image = UIImage(named: "soundOn")) != nil) {
+//            soundButton.setImage(UIImage(named: "soundOff"), for: .normal)
+//        }
+        print("Souund button tapped")
     }
     
     //MARK: API Request
@@ -176,11 +154,27 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                     
                     let coverImageURL = newTrack.images[0].url
                     print(coverImageURL)
-                    self.imageView.kf.setImage(with: coverImageURL)
-
+                    self.imageView.kf.setImage(with: coverImageURL) { (result) in
+                        switch result {
+                        case .failure(let error):
+                            print("Image Error: ", error)
+                        case .success(let value):
+                            DispatchQueue.main.async {
+                                self.imageView.image = value.image
+                                
+                            }
+                        }
+                    }
+                    
                     imageView.contentMode = .scaleAspectFill
                     
-                    let songModel = CardModel(songName: newTrack.title, artistName: newTrack.artistName, imageView: imageView)
+//                    var uris: [String] = []
+//                    uris.append(newTrack.id)
+                    
+                    let newURI = "spotify:track:\(newTrack.id)"
+                    
+
+                    let songModel = CardModel(songName: newTrack.title, artistName: newTrack.artistName, imageView: imageView, URI: newURI)
                     self.cardModels.append(songModel)
                     
                     let previewURL = newTrack.previewUrl
@@ -219,7 +213,13 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
             //create playlist
             _ = Spartan.createPlaylist(userId: user.id as! String, name: name, isPublic: true) { (playlist) in
                 
+                let playlistId = playlist.id
                 
+                let defaults = UserDefaults.standard
+                defaults.setValue(playlistId, forKey: "playlistId")
+//                defaults.synchronize()
+                
+//                print("Playlsit: \(playlist.name), \(playlistId), \(playlist.description)" )
                 
             } failure: { (error) in
                 print("Error creating playlist: ", error)
@@ -250,6 +250,18 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     }
     
     //MARK: Helpers
+    
+//    func createSoundButton() {
+//        soundButton.addTarget(self, action: #selector(soundButtonTapped), for: .touchUpInside)
+//        if let image = UIImage(named: "soundOn") {
+//            soundButton.setImage(image, for: .normal)
+//            soundButton.imageView?.contentMode = .scaleAspectFit
+//            soundButton.frame = CGRect(x: 325, y: 100, width: 37, height: 37)
+//            soundButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+//        }
+//        view.addSubview(soundButton)
+//        UIWindow.key?.addSubview(soundButton)
+//    }
     
     func getRandomLetter(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyz"
@@ -293,6 +305,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     func didSwipeAllCards(_ cardStack: SwipeCardStack) {
         fetchAndConfigureSearch()
+        
         print("Swiped all cards!")
     }
     
@@ -302,6 +315,28 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
         print("Swiped \(direction) on \(cardModels[index].songName)")
+        
+        let defaults = UserDefaults.standard
+        let id = defaults.string(forKey: "playlistId")
+
+        print("PLAYLIST ID FOREVER::: ", id)
+        
+        if direction == .right || direction == .up {
+            
+            _ = Spartan.getMe(success: { (user) in
+                
+                _ = Spartan.addTracksToPlaylist(userId: user.id as! String, playlistId: id!, trackUri: self.cardModels[index].URI, success: { (snapshot) in
+                    
+                    print("Song added to playlist?")
+                    
+                }, failure: { (error) in
+                    print("Error adding track to playlist: ", error)
+                })
+                
+            }, failure: { (error) in
+                print("failed to get user: ", error)
+            })
+        }
     }
     
     func cardStack(_ cardStack: SwipeCardStack, didSelectCardAt index: Int) {
@@ -316,9 +351,9 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
             cardStack.swipe(.left, animated: true)
         case 3:
             cardStack.swipe(.up, animated: true)
+
         case 4:
             cardStack.swipe(.right, animated: true)
-            player?.pause()
         case 5:
             cardStack.reloadData()
         default:
