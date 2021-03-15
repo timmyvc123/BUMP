@@ -17,7 +17,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     //cardLayout in CardLayoutProvider.swift
     //tab bar positioning in PTCardTabBarController.swift
-    
+    //
     @IBOutlet weak var headerView: UIView!
     
     private let cardStack = SwipeCardStack()
