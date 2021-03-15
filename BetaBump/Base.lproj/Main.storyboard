@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -84,7 +85,7 @@
                         <viewLayoutGuide key="safeArea" id="U4T-Uf-YeN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Likes" image="heart.fill" catalog="system" id="AHG-GV-5b8"/>
+                    <tabBarItem key="tabBarItem" title="Likes" image="like" id="AHG-GV-5b8"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="81W-jW-1Ll" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -97,25 +98,58 @@
                     <view key="view" contentMode="scaleToFill" id="wb8-iy-aDx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7cl-m5-ocb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" name="backgroundColor"/>
+                            </view>
+                            <view alpha="0.84999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ad-Jg-knQ">
+                                <rect key="frame" x="0.0" y="-60" width="402" height="256"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="headerViewCropped" translatesAutoresizingMaskIntoConstraints="NO" id="wJO-Ap-B7R">
+                                        <rect key="frame" x="8" y="-84" width="394" height="240"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Bnc-cg-ME6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7cl-m5-ocb" firstAttribute="top" secondItem="wb8-iy-aDx" secondAttribute="top" id="63B-bV-O6h"/>
+                            <constraint firstAttribute="bottom" secondItem="7cl-m5-ocb" secondAttribute="bottom" id="6Iq-zo-WFJ"/>
+                            <constraint firstItem="7cl-m5-ocb" firstAttribute="trailing" secondItem="Bnc-cg-ME6" secondAttribute="trailing" id="ZwO-e3-jnp"/>
+                            <constraint firstItem="7cl-m5-ocb" firstAttribute="leading" secondItem="Bnc-cg-ME6" secondAttribute="leading" id="l5Z-GK-Jme"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Main" image="musicNote" id="77E-hy-zTJ"/>
+                    <connections>
+                        <outlet property="headerView" destination="9Ad-Jg-knQ" id="442-0z-F3z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGb-ea-rVi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2015.9420289855075" y="99.776785714285708"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Card Tab Bar Controller-->
         <scene sceneID="NBm-fo-zuI">
             <objects>
-                <tabBarController storyboardIdentifier="mainView" automaticallyAdjustsScrollViewInsets="NO" id="1k1-0L-MZZ" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="mainView" id="1k1-0L-MZZ" customClass="PTCardTabBarController" customModule="PTCardTabBar" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OQz-N3-uUt">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                            <color key="value" systemColor="systemPurpleColor"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="tabBarBackgroundColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="nKs-Bd-s2H" kind="relationship" relationship="viewControllers" id="3DS-Ka-ttT"/>
                         <segue destination="agf-vC-mNh" kind="relationship" relationship="viewControllers" id="Rgc-kA-fzk"/>
@@ -129,11 +163,18 @@
     </scenes>
     <resources>
         <image name="ConnectSpotify" width="806" height="141"/>
-        <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="headerViewCropped" width="385" height="276"/>
+        <image name="like" width="32" height="32"/>
         <image name="musicNote" width="30" height="30"/>
         <image name="user" width="30" height="30"/>
+        <namedColor name="backgroundColor">
+            <color red="0.23137254901960785" green="0.047058823529411764" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

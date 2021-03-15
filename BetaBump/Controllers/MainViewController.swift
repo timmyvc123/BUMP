@@ -9,10 +9,15 @@ import UIKit
 import Shuffle_iOS
 import Spartan
 import Kingfisher
+import PTCardTabBar
 
 class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardStackDataSource, SwipeCardStackDelegate {
     
     //MARK: - Vars
+    
+    //cardLayout in CardLayoutProvider.swift
+    
+    @IBOutlet weak var headerView: UIView!
     
     private let cardStack = SwipeCardStack()
     var simplifiedTrack: SimpleTrack!
@@ -40,6 +45,8 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        headerView.backgroundColor = UIColor(patternImage: UIImage(named: "headerViewImage")!)
+                
         Spartan.authorizationToken = token
         
         cardStack.delegate = self
@@ -52,7 +59,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         layoutButtonStackView()
         layoutCardStackView()
         configureBackgroundGradient()
-//        createSoundButton()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
