@@ -16,6 +16,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     //MARK: - Vars
     
     //cardLayout in CardLayoutProvider.swift
+    //tab bar positioning in PTCardTabBarController.swift
     
     @IBOutlet weak var headerView: UIView!
     
