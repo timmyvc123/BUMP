@@ -56,7 +56,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         fetchAndConfigureSearch()
         
         configureNavigationBar()
-        layoutButtonStackView()
+//        layoutButtonStackView()
         layoutCardStackView()
         configureBackgroundGradient()
 
@@ -102,21 +102,21 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     //MARK: - Button Stack View
     
-    private func layoutButtonStackView() {
-        view.addSubview(buttonStackView)
-        buttonStackView.anchor(left: view.safeAreaLayoutGuide.leftAnchor,
-                               bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                               right: view.safeAreaLayoutGuide.rightAnchor,
-                               paddingLeft: 24,
-                               paddingBottom: 12,
-                               paddingRight: 24)
-    }
+//    private func layoutButtonStackView() {
+//        view.addSubview(buttonStackView)
+//        buttonStackView.anchor(left: view.safeAreaLayoutGuide.leftAnchor,
+//                               bottom: view.safeAreaLayoutGuide.bottomAnchor,
+//                               right: view.safeAreaLayoutGuide.rightAnchor,
+//                               paddingLeft: 24,
+//                               paddingBottom: 12,
+//                               paddingRight: 24)
+//    }
     
     private func layoutCardStackView() {
         view.addSubview(cardStack)
         cardStack.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          left: view.safeAreaLayoutGuide.leftAnchor,
-                         bottom: buttonStackView.topAnchor,
+                         bottom: view.safeAreaLayoutGuide.bottomAnchor,
                          right: view.safeAreaLayoutGuide.rightAnchor)
     }
     
