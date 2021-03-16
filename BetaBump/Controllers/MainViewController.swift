@@ -16,9 +16,12 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     //MARK: - Vars
     
     //cardLayout in CardLayoutProvider.swift
+    //card height line 55 SwipCardStack.swift
     //tab bar positioning in PTCardTabBarController.swift
     //
-    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var filterSlideUpContainerView: UIView!
+    
+    var transparentView = UIView()
     
     private let cardStack = SwipeCardStack()
     var simplifiedTrack: SimpleTrack!
@@ -46,9 +49,14 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        headerView.backgroundColor = UIColor(patternImage: UIImage(named: "headerViewImage")!)
-                
+        //        filterSlideUpContainerView.superview?.bringSubviewToFront(filterSlideUpContainerView)
+        //        UIWindow.key?.superview?.bringSubviewToFront(filterSlideUpContainerView)
+        view.superview?.bringSubviewToFront(filterSlideUpContainerView)
+        view.superview?.sendSubviewToBack(cardStack)
+        
         Spartan.authorizationToken = token
+        
+        cardStack.cardStackInsets = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         
         cardStack.delegate = self
         cardStack.dataSource = self
@@ -57,10 +65,10 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         fetchAndConfigureSearch()
         
         configureNavigationBar()
-//        layoutButtonStackView()
+        //        layoutButtonStackView()
         layoutCardStackView()
         configureBackgroundGradient()
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -103,15 +111,15 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     //MARK: - Button Stack View
     
-//    private func layoutButtonStackView() {
-//        view.addSubview(buttonStackView)
-//        buttonStackView.anchor(left: view.safeAreaLayoutGuide.leftAnchor,
-//                               bottom: view.safeAreaLayoutGuide.bottomAnchor,
-//                               right: view.safeAreaLayoutGuide.rightAnchor,
-//                               paddingLeft: 24,
-//                               paddingBottom: 12,
-//                               paddingRight: 24)
-//    }
+    //    private func layoutButtonStackView() {
+    //        view.addSubview(buttonStackView)
+    //        buttonStackView.anchor(left: view.safeAreaLayoutGuide.leftAnchor,
+    //                               bottom: view.safeAreaLayoutGuide.bottomAnchor,
+    //                               right: view.safeAreaLayoutGuide.rightAnchor,
+    //                               paddingLeft: 24,
+    //                               paddingBottom: 12,
+    //                               paddingRight: 24)
+    //    }
     
     private func layoutCardStackView() {
         view.addSubview(cardStack)
@@ -129,11 +137,40 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     }
     
     @objc func soundButtonTapped() {
-//        if ((soundButton.imageView?.image = UIImage(named: "soundOn")) != nil) {
-//            soundButton.setImage(UIImage(named: "soundOff"), for: .normal)
-//        }
+        //        if ((soundButton.imageView?.image = UIImage(named: "soundOn")) != nil) {
+        //            soundButton.setImage(UIImage(named: "soundOff"), for: .normal)
+        //        }
         print("Souund button tapped")
     }
+    
+    @IBAction func filterButtonTapped(_ sender: Any) {
+        
+        let window = UIWindow.key
+        transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        transparentView.frame = self.view.frame
+        window?.addSubview(transparentView)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onClickTransparentView))
+        transparentView.addGestureRecognizer(tapGesture)
+        
+        transparentView.alpha = 0
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transparentView.alpha = 0.5
+            //            self.tableView.frame = CGRect(x: 0, y: screenSize.height - self.height, width: screenSize.width, height: self.height)
+        }, completion: nil)
+        
+    }
+    
+    @objc func onClickTransparentView() {
+        let screenSize = UIScreen.main.bounds.size
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transparentView.alpha = 0
+            //            self.tableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.height)
+        }, completion: nil)
+    }
+    
     
     //MARK: API Request
     
@@ -176,12 +213,12 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                     
                     imageView.contentMode = .scaleAspectFill
                     
-//                    var uris: [String] = []
-//                    uris.append(newTrack.id)
+                    //                    var uris: [String] = []
+                    //                    uris.append(newTrack.id)
                     
                     let newURI = "spotify:track:\(newTrack.id)"
                     
-
+                    
                     let songModel = CardModel(songName: newTrack.title, artistName: newTrack.artistName, imageView: imageView, URI: newURI)
                     self.cardModels.append(songModel)
                     
@@ -225,9 +262,9 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                 
                 let defaults = UserDefaults.standard
                 defaults.setValue(playlistId, forKey: "playlistId")
-//                defaults.synchronize()
+                //                defaults.synchronize()
                 
-//                print("Playlsit: \(playlist.name), \(playlistId), \(playlist.description)" )
+                //                print("Playlsit: \(playlist.name), \(playlistId), \(playlist.description)" )
                 
             } failure: { (error) in
                 print("Error creating playlist: ", error)
@@ -259,17 +296,17 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     //MARK: Helpers
     
-//    func createSoundButton() {
-//        soundButton.addTarget(self, action: #selector(soundButtonTapped), for: .touchUpInside)
-//        if let image = UIImage(named: "soundOn") {
-//            soundButton.setImage(image, for: .normal)
-//            soundButton.imageView?.contentMode = .scaleAspectFit
-//            soundButton.frame = CGRect(x: 325, y: 100, width: 37, height: 37)
-//            soundButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
-//        }
-//        view.addSubview(soundButton)
-//        UIWindow.key?.addSubview(soundButton)
-//    }
+    //    func createSoundButton() {
+    //        soundButton.addTarget(self, action: #selector(soundButtonTapped), for: .touchUpInside)
+    //        if let image = UIImage(named: "soundOn") {
+    //            soundButton.setImage(image, for: .normal)
+    //            soundButton.imageView?.contentMode = .scaleAspectFit
+    //            soundButton.frame = CGRect(x: 325, y: 100, width: 37, height: 37)
+    //            soundButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+    //        }
+    //        view.addSubview(soundButton)
+    //        UIWindow.key?.addSubview(soundButton)
+    //    }
     
     func getRandomLetter(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyz"
@@ -302,7 +339,6 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         let model = cardModels[index]
         card.content = CardContentView(withImageView: model.imageView)
         card.footer = CardFooterView(withTitle: "\(model.songName)", subtitle: model.artistName)
-        
         return card
     }
     
@@ -326,7 +362,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         
         let defaults = UserDefaults.standard
         let id = defaults.string(forKey: "playlistId")
-
+        
         print("PLAYLIST ID FOREVER::: ", id)
         
         if direction == .right || direction == .up {
@@ -359,7 +395,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
             cardStack.swipe(.left, animated: true)
         case 3:
             cardStack.swipe(.up, animated: true)
-
+            
         case 4:
             cardStack.swipe(.right, animated: true)
         case 5:

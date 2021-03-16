@@ -124,7 +124,6 @@
 			children = (
 				2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */,
 				2480CA1025E57DD9000F1FD5 /* Button.swift */,
-				2480CA2625E5808A000F1FD5 /* Extensions.swift */,
 				2480CA1B25E58049000F1FD5 /* Card */,
 			);
 			path = "Card Swipiing";
@@ -139,6 +138,14 @@
 				2480CA2325E5806A000F1FD5 /* CardModel.swift */,
 			);
 			path = Card;
+			sourceTree = "<group>";
+		};
+		248653A026006E2F008C4318 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2480CA2625E5808A000F1FD5 /* Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		24D92FF325DB035600630B06 = {
@@ -166,6 +173,7 @@
 				24D9300125DB035600630B06 /* SceneDelegate.swift */,
 				24D9301825DB071700630B06 /* Model */,
 				246D2D9625DE041B005C2EF1 /* Controllers */,
+				248653A026006E2F008C4318 /* Helpers */,
 				24D9302025DB077100630B06 /* Network */,
 				24D9300525DB035600630B06 /* Main.storyboard */,
 				24D9300825DB035700630B06 /* Assets.xcassets */,

@@ -52,7 +52,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     }
   }
 
-  public var cardStackInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) {
+  public var cardStackInsets = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10) {
     didSet {
       setNeedsLayout()
     }
