@@ -20,6 +20,9 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     //tab bar positioning in PTCardTabBarController.swift
     //
     @IBOutlet weak var filterSlideUpContainerView: UIView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var backgroundImage: UIImageView!
     
     var transparentView = UIView()
     
@@ -29,6 +32,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     private let buttonStackView = ButtonStackView()
     
     let imageView = UIImageView()
+    let testImage = UIImage()
     let soundButton = UIButton(type: .custom)
     
     private let api = APIClient(configuration: .default)
@@ -44,16 +48,14 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     var listId: Any?
     
+    var counter = 0
+    
     //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        filterSlideUpContainerView.superview?.bringSubviewToFront(filterSlideUpContainerView)
-        //        UIWindow.key?.superview?.bringSubviewToFront(filterSlideUpContainerView)
-        view.superview?.bringSubviewToFront(filterSlideUpContainerView)
-        view.superview?.sendSubviewToBack(cardStack)
-        
+        view.bringSubviewToFront(undoButton)
         Spartan.authorizationToken = token
         
         cardStack.cardStackInsets = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
@@ -72,6 +74,8 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        AudioPlayer.shared.player?.play()
         
         if (!appDelegate.hasAlreadyLaunched) {
             appDelegate.sethasAlreadyLaunched()
@@ -121,12 +125,17 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     //                               paddingRight: 24)
     //    }
     
+    //MARK: - Card Stack View
+    
     private func layoutCardStackView() {
         view.addSubview(cardStack)
         cardStack.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          left: view.safeAreaLayoutGuide.leftAnchor,
                          bottom: view.safeAreaLayoutGuide.bottomAnchor,
                          right: view.safeAreaLayoutGuide.rightAnchor)
+        view.bringSubviewToFront(headerView)
+        view.sendSubviewToBack(cardStack)
+        view.sendSubviewToBack(backgroundImage)
     }
     
     //MARK: - Actions
@@ -143,7 +152,30 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         print("Souund button tapped")
     }
     
+    @IBAction func undoButtonTapped(_ sender: Any) {
+        print("undo tapped")
+        self.counter += 1
+        
+        cardStack.undoLastSwipe(animated: true)
+        AudioPlayer.shared.player?.stop()
+        
+        var lastSwipedCard = cardStack.topCardIndex! - self.counter
+        var undoIndex = cardModels[cardStack.topCardIndex!]
+
+        DispatchQueue.main.async {
+
+            if undoIndex.previewURL != nil {
+                AudioPlayer.shared.downloadFileFromURL(url: undoIndex.previewURL!)
+            } else {
+                AudioPlayer.shared.player?.stop()
+            }
+
+        }
+        
+    }
+    
     @IBAction func filterButtonTapped(_ sender: Any) {
+        print("filter tapped")
         
         let window = UIWindow.key
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
@@ -156,11 +188,11 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         transparentView.alpha = 0
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
-            self.transparentView.alpha = 0.5
+            self.transparentView.alpha = 0.9
             //            self.tableView.frame = CGRect(x: 0, y: screenSize.height - self.height, width: screenSize.width, height: self.height)
         }, completion: nil)
-        
     }
+    
     
     @objc func onClickTransparentView() {
         let screenSize = UIScreen.main.bounds.size
@@ -198,38 +230,23 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                                                albumName: track.album.name)
                     
                     let coverImageURL = newTrack.images[0].url
-                    print(coverImageURL)
-                    self.imageView.kf.setImage(with: coverImageURL) { (result) in
-                        switch result {
-                        case .failure(let error):
-                            print("Image Error: ", error)
-                        case .success(let value):
-                            DispatchQueue.main.async {
-                                self.imageView.image = value.image
-                                
-                            }
-                        }
-                    }
-                    
                     imageView.contentMode = .scaleAspectFill
-                    
-                    //                    var uris: [String] = []
-                    //                    uris.append(newTrack.id)
-                    
                     let newURI = "spotify:track:\(newTrack.id)"
-                    
-                    
-                    let songModel = CardModel(songName: newTrack.title, artistName: newTrack.artistName, imageView: imageView, URI: newURI)
+                    let songModel = CardModel(songName: newTrack.title, artistName: newTrack.artistName, imageURL: coverImageURL, URI: newURI, previewURL: newTrack.previewUrl)
                     self.cardModels.append(songModel)
                     
-                    let previewURL = newTrack.previewUrl
-                    
                     DispatchQueue.main.async {
-                        if previewURL == nil {
-                            player?.stop()
+                        
+                        print("PREVIEW URL: ", songModel.previewURL)
+                        
+                        if songModel.previewURL == nil {
+                            AudioPlayer.shared.player?.stop()
                         } else {
-                            AudioPlayer.shared.downloadFileFromURL(url: previewURL!)
+                            AudioPlayer.shared.downloadFileFromURL(url: songModel.previewURL!)
                         }
+                        
+                        
+                        
                     }
                 }
                 
@@ -331,13 +348,16 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         let card = SwipeCard()
         card.content?.widthAnchor
         card.footerHeight = 100
+        
         card.swipeDirections = [.left, .up, .right]
         for direction in card.swipeDirections {
             card.setOverlay(CardOverlay(direction: direction), forDirection: direction)
         }
         
         let model = cardModels[index]
-        card.content = CardContentView(withImageView: model.imageView)
+        
+        card.content = CardContentView(withImageURL: model.imageURL)
+        
         card.footer = CardFooterView(withTitle: "\(model.songName)", subtitle: model.artistName)
         return card
     }
@@ -358,20 +378,23 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     }
     
     func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
+        
         print("Swiped \(direction) on \(cardModels[index].songName)")
         
         let defaults = UserDefaults.standard
         let id = defaults.string(forKey: "playlistId")
         
-        print("PLAYLIST ID FOREVER::: ", id)
+        AudioPlayer.shared.player?.stop()
+        
+        let trackUri = self.cardModels[index].URI
         
         if direction == .right || direction == .up {
             
             _ = Spartan.getMe(success: { (user) in
                 
-                _ = Spartan.addTracksToPlaylist(userId: user.id as! String, playlistId: id!, trackUri: self.cardModels[index].URI, success: { (snapshot) in
+                _ = Spartan.addTracksToPlaylist(userId: user.id as! String, playlistId: id!, trackUri: trackUri, success: { (snapshot) in
                     
-                    print("Song added to playlist?")
+                    print("Song added to playlist")
                     
                 }, failure: { (error) in
                     print("Error adding track to playlist: ", error)
@@ -381,10 +404,31 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                 print("failed to get user: ", error)
             })
         }
+        
+        
     }
     
     func cardStack(_ cardStack: SwipeCardStack, didSelectCardAt index: Int) {
         print("Card tapped")
+        
+        var topCard = cardModels[cardStack.topCardIndex!]
+
+        DispatchQueue.main.async {
+
+            if topCard.previewURL != nil {
+
+                if AudioPlayer.shared.player.isPlaying {
+                    AudioPlayer.shared.player.pause()
+                } else {
+//                    AudioPlayer.shared.player.play()
+                    AudioPlayer.shared.downloadFileFromURL(url: topCard.previewURL!)
+                }
+                
+            } else {
+                AudioPlayer.shared.player?.stop()
+            }
+
+        }
     }
     
     func didTapButton(button: Button) {

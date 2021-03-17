@@ -24,6 +24,8 @@ class CardContentView: UIView {
         return imageView
     }()
     
+    var imageURL: URL?
+    
     private let gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [UIColor.black.withAlphaComponent(0.01).cgColor,
@@ -35,13 +37,23 @@ class CardContentView: UIView {
     
     init(withImage image: UIImage?) {
         super.init(frame: .zero)
+        
         imageView.image = image
         initialize()
     }
     
-    init(withImageView secondImageView: UIImageView?) {
+    init(withImageURL imageURL: URL?) {
         super.init(frame: .zero)
-        imageView = secondImageView!
+        let getDataTask = URLSession.shared.dataTask(with: imageURL!) { (data, _, error) in
+            guard let data = data, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                let coverImage = UIImage(data: data)
+                self.imageView.image = coverImage
+            }
+        }
+        getDataTask.resume()
         initialize()
     }
     
@@ -77,6 +89,24 @@ class CardContentView: UIView {
                                      y: (1 - heightFactor) * bounds.height,
                                      width: bounds.width,
                                      height: heightFactor * bounds.height)
+    }
+    
+    func fetchImage(imageURL: URL?) {
+        // get data
+        // convert the data to image
+        // set image to imageview
+        
+        let getDataTask = URLSession.shared.dataTask(with: imageURL!) { (data, _, error) in
+            guard let data = data, error == nil else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                CardContentView.init(withImage: image)
+            }
+        }
+        getDataTask.resume()
     }
     
 }

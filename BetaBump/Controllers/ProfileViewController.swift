@@ -25,9 +25,17 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         Spartan.authorizationToken = token
+        likedSongsLabel.isHidden = true
+        superLikedSongsLabel.isHidden = true
 //        fetchUserInfo()
         getUser()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        AudioPlayer.shared.player?.pause()
+
     }
     
     func getUser() {
@@ -54,7 +62,7 @@ class ProfileViewController: UIViewController {
             let defaults = UserDefaults.standard
             let id = defaults.string(forKey: "playlistId")
             
-            
+//
 //            _ = Spartan.getUsersPlaylist(userId: user.id, playlistId: id,  success: { (playlist) in
 //
 //

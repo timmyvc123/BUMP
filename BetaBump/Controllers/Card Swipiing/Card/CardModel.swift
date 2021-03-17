@@ -10,6 +10,9 @@ import UIKit
 struct CardModel {
     var songName: String
     var artistName: String?
-    var imageView: UIImageView?
+//    var imageView: UIImageView?
+//    var coverImage: UIImage?
+    var imageURL: URL?
     var URI: String
+    var previewURL: URL?
 }
