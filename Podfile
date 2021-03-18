@@ -14,4 +14,6 @@ pod 'Spartan'
 
 pod 'PTCardTabBar'
 
+pod 'MultiSlider'
+
 end

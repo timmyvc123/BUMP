@@ -24,6 +24,8 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    @IBOutlet weak var tableView: UIView!
+    let height: CGFloat = 600
     var transparentView = UIView()
     
     private let cardStack = SwipeCardStack()
@@ -159,8 +161,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         cardStack.undoLastSwipe(animated: true)
         AudioPlayer.shared.player?.stop()
         
-        var lastSwipedCard = cardStack.topCardIndex! - self.counter
-        var undoIndex = cardModels[cardStack.topCardIndex!]
+        let undoIndex = cardModels[cardStack.topCardIndex!]
 
         DispatchQueue.main.async {
 
@@ -177,10 +178,17 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     @IBAction func filterButtonTapped(_ sender: Any) {
         print("filter tapped")
         
+//        view.sendSubviewToBack()
+        
         let window = UIWindow.key
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         transparentView.frame = self.view.frame
         window?.addSubview(transparentView)
+        window?.addSubview(filterSlideUpContainerView)
+//        window?.bringSubviewToFront(filterSlideUpContainerView)
+        
+        let screenSize = UIScreen.main.bounds.size
+        filterSlideUpContainerView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: height)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onClickTransparentView))
         transparentView.addGestureRecognizer(tapGesture)
@@ -189,7 +197,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.9
-            //            self.tableView.frame = CGRect(x: 0, y: screenSize.height - self.height, width: screenSize.width, height: self.height)
+            self.filterSlideUpContainerView.frame = CGRect(x: 0, y: screenSize.height - self.height, width: screenSize.width, height: self.height)
         }, completion: nil)
     }
     
@@ -199,7 +207,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0
-            //            self.tableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.height)
+                        self.filterSlideUpContainerView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.height)
         }, completion: nil)
     }
     

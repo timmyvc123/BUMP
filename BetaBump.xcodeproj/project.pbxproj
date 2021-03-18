@@ -12,6 +12,8 @@
 		246D2DA525DE4B60005C2EF1 /* SimpleTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */; };
 		246D2DA825DE4BCA005C2EF1 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA725DE4BCA005C2EF1 /* Playlist.swift */; };
 		246D2DAB25DE4BEF005C2EF1 /* UserTopTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DAA25DE4BEF005C2EF1 /* UserTopTracks.swift */; };
+		2479E9DC2603C868003559A7 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2479E9DB2603C868003559A7 /* FilterTableViewController.swift */; };
+		2479E9DF2603CAB6003559A7 /* FilterLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2479E9DE2603CAB6003559A7 /* FilterLauncher.swift */; };
 		247BF62B25DF091900D2B547 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 247BF62A25DF091900D2B547 /* Kingfisher */; };
 		2480CA0825E57B52000F1FD5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA0725E57B52000F1FD5 /* MainViewController.swift */; };
 		2480CA0E25E57CD7000F1FD5 /* ButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */; };
@@ -52,6 +54,8 @@
 		246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTrack.swift; sourceTree = "<group>"; };
 		246D2DA725DE4BCA005C2EF1 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		246D2DAA25DE4BEF005C2EF1 /* UserTopTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTopTracks.swift; sourceTree = "<group>"; };
+		2479E9DB2603C868003559A7 /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
+		2479E9DE2603CAB6003559A7 /* FilterLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLauncher.swift; sourceTree = "<group>"; };
 		2480CA0725E57B52000F1FD5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2480CA0D25E57CD6000F1FD5 /* ButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStackView.swift; sourceTree = "<group>"; };
 		2480CA1025E57DD9000F1FD5 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 				24D9304325DB7ACB00630B06 /* LoginViewController.swift */,
 				24D9304625DB944600630B06 /* ProfileViewController.swift */,
 				2480CA0725E57B52000F1FD5 /* MainViewController.swift */,
+				2479E9DB2603C868003559A7 /* FilterTableViewController.swift */,
 				2480CA0A25E57CA8000F1FD5 /* Card Swipiing */,
 			);
 			path = Controllers;
@@ -144,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				2480CA2625E5808A000F1FD5 /* Extensions.swift */,
+				2479E9DE2603CAB6003559A7 /* FilterLauncher.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 				24D9300025DB035600630B06 /* AppDelegate.swift in Sources */,
 				24D9303625DB777700630B06 /* SpotifyType.swift in Sources */,
 				24D9302425DB07A500630B06 /* Header.swift in Sources */,
+				2479E9DC2603C868003559A7 /* FilterTableViewController.swift in Sources */,
 				2480CA0E25E57CD7000F1FD5 /* ButtonStackView.swift in Sources */,
 				24D9303025DB07CF00630B06 /* Request.swift in Sources */,
 				24D9301E25DB076D00630B06 /* RequestBuilder.swift in Sources */,
@@ -376,6 +383,7 @@
 				2480CA2725E5808A000F1FD5 /* Extensions.swift in Sources */,
 				24D9300225DB035600630B06 /* SceneDelegate.swift in Sources */,
 				24D9301625DB06E200630B06 /* Constants.swift in Sources */,
+				2479E9DF2603CAB6003559A7 /* FilterLauncher.swift in Sources */,
 				24D9304425DB7ACB00630B06 /* LoginViewController.swift in Sources */,
 				24D9302A25DB07B800630B06 /* Parameters.swift in Sources */,
 				24D9302D25DB07C500630B06 /* SpotifyBaseURL.swift in Sources */,

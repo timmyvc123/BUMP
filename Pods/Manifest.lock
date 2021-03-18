@@ -5,6 +5,10 @@ PODS:
     - ObjectMapper (~> 3.4)
   - AlamoRecord (1.2.2):
     - AlamofireObjectMapper (~> 5.1)
+  - AvailableHapticFeedback (1.0.2)
+  - MultiSlider (1.11.2):
+    - AvailableHapticFeedback
+    - SweeterSwift
   - ObjectMapper (3.5.3)
   - pop (1.0.12)
   - PopBounceButton (1.2.2):
@@ -13,8 +17,10 @@ PODS:
   - Shuffle-iOS (0.4.0)
   - Spartan (1.2.1):
     - AlamoRecord (~> 1.2.0)
+  - SweeterSwift (1.1.4)
 
 DEPENDENCIES:
+  - MultiSlider
   - PopBounceButton
   - PTCardTabBar
   - Shuffle-iOS
@@ -25,24 +31,30 @@ SPEC REPOS:
     - Alamofire
     - AlamofireObjectMapper
     - AlamoRecord
+    - AvailableHapticFeedback
+    - MultiSlider
     - ObjectMapper
     - pop
     - PopBounceButton
     - PTCardTabBar
     - Shuffle-iOS
     - Spartan
+    - SweeterSwift
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AlamofireObjectMapper: 1989f690e982b71921b9253f53a4f33a9bc00d88
   AlamoRecord: 5850c563a811fdca40cd361b1b27622004bccef3
+  AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
+  MultiSlider: 944d00877d371bbb5ce0a512fec517de87958775
   ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   PopBounceButton: 34105a012678222f058f8d2621672724a3d5c9fb
   PTCardTabBar: 9112a6d4eb2b73da9cf4e7f3aefe04504479cf98
   Shuffle-iOS: 87e4d3503475f3d684a375358649911e36fe139f
   Spartan: 2fb99ad25f2b0e8182799f251c800091977f0a40
+  SweeterSwift: 8a90cf3156f5a1b6f39785c479369a16633b5ea9
 
-PODFILE CHECKSUM: 80814b769301f2f6b118984d4d5ba302128147a0
+PODFILE CHECKSUM: 73a3b6a1170272e835afc123469403246b263ed9
 
 COCOAPODS: 1.10.0
