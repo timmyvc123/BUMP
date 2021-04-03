@@ -32,7 +32,9 @@ enum EndingPath {
             return "artists&ids=\(ids.joined(separator: ","))"
         case .search(let q, let type, let market, let limit, let offset):
             let convertSpacesToProperURL = q.replacingOccurrences(of: " ", with: "%20")
-            return "search?q=\(q)25&type=\(type)&market=\(market)&limit=\(limit)&offset=\(offset)"
+            return "search?q=\(q)20&type=\(type)&market=\(market)&limit=\(limit)&offset=\(offset)"
+        // corerctly get year and genre
+//            "search?q=\(q)20year:2020%20genre:%22southern%20hip%20hop%22&type=\(type)&market=\(market)&limit=\(limit)&offset=\(offset)"
         case .artistTopTracks(let id, let country):
             return "artists/\(id)/top-tracks?country=\(country)"
         case .playlist (let id):

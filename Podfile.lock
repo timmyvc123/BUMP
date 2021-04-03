@@ -6,6 +6,7 @@ PODS:
   - AlamoRecord (1.2.2):
     - AlamofireObjectMapper (~> 5.1)
   - AvailableHapticFeedback (1.0.2)
+  - iCarousel (1.8.3)
   - MultiSlider (1.11.2):
     - AvailableHapticFeedback
     - SweeterSwift
@@ -20,6 +21,7 @@ PODS:
   - SweeterSwift (1.1.4)
 
 DEPENDENCIES:
+  - iCarousel
   - MultiSlider
   - PopBounceButton
   - PTCardTabBar
@@ -32,6 +34,7 @@ SPEC REPOS:
     - AlamofireObjectMapper
     - AlamoRecord
     - AvailableHapticFeedback
+    - iCarousel
     - MultiSlider
     - ObjectMapper
     - pop
@@ -46,6 +49,7 @@ SPEC CHECKSUMS:
   AlamofireObjectMapper: 1989f690e982b71921b9253f53a4f33a9bc00d88
   AlamoRecord: 5850c563a811fdca40cd361b1b27622004bccef3
   AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
+  iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   MultiSlider: 944d00877d371bbb5ce0a512fec517de87958775
   ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
@@ -55,6 +59,6 @@ SPEC CHECKSUMS:
   Spartan: 2fb99ad25f2b0e8182799f251c800091977f0a40
   SweeterSwift: 8a90cf3156f5a1b6f39785c479369a16633b5ea9
 
-PODFILE CHECKSUM: 73a3b6a1170272e835afc123469403246b263ed9
+PODFILE CHECKSUM: 13b59557d2a053a35e91855f182ab0b3481e2f15
 
 COCOAPODS: 1.10.0

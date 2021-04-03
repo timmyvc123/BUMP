@@ -7,17 +7,11 @@
 
 import Foundation
 
-struct UserTopArtists: Model {
-    let items: [ArtistItem]
+struct UserTopTracks: Model {
+    let items: [Album]
 }
 
-struct ArtistItem: Model {
-    let id: String
+struct TopTracks {
     let name: String
-    let images: [ArtistImage]
-}
-
-struct ArtistImage: Model {
-    let height: Int
-    let url: URL
+    let imageURL: URL
 }

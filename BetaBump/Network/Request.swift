@@ -164,6 +164,108 @@ extension Request {
         
     }
     
+    static func getUserTopArtists(token: String, completions: @escaping (Result<UserTopArtists, Error>) -> Void) -> Request {
+        let apiClient = APIClient(configuration: URLSessionConfiguration.default)
+        
+        apiClient.call(request: .checkExpiredToken(token: token, completion: { (expiredToken) in
+            switch expiredToken {
+            case .failure(_):
+                print("token still valid")
+            case .success(_):
+                print("token expired")
+                apiClient.call(request: refreshTokenToAccessToken(completion: { (refreshToken) in
+                    switch refreshToken {
+                    case .failure(_):
+                        print("no refresh token returned")
+                    case .success(let refresh):
+                        print(refresh.accessToken)
+                        UserDefaults.standard.set(refresh.accessToken, forKey: "token")
+                        apiClient.call(request: .getUserTopArtists(token: refresh.accessToken, completions: completions))
+                    }
+                })!)
+            }
+        }))
+        
+        return Request.buildRequest(method: .get,
+                                    header: Header.GETHeader(accessToken: token).buildHeader(),
+                                    baseURL: SpotifyBaseURL.APICallBase.rawValue,
+                                    path: EndingPath.myTop(type: .artists).buildPath(),
+                                    params: Parameters.timeRange(range: "long_term").buildParameters()) { (result) in
+                                        
+                                        result.decoding(UserTopArtists.self, completion: completions)
+                                        
+        }
+        
+    }
+    
+    static func getUserTopTracks(token: String, completions: @escaping (Result<UserTopTracks, Error>) -> Void) -> Request {
+        
+        let apiClient = APIClient(configuration: URLSessionConfiguration.default)
+        
+        apiClient.call(request: .checkExpiredToken(token: token, completion: { (expiredToken) in
+            switch expiredToken {
+            case .failure(_):
+                print("token still valid")
+            case .success(_):
+                print("token expired")
+                apiClient.call(request: refreshTokenToAccessToken(completion: { (refreshToken) in
+                    switch refreshToken {
+                    case .failure(_):
+                        print("no refresh token returned")
+                    case .success(let refresh):
+                        UserDefaults.standard.set(refresh.accessToken, forKey: "token")
+                        apiClient.call(request: .getUserTopTracks(token: refresh.accessToken, completions: completions))
+                    }
+                })!)
+            }
+        }))
+        
+        return Request.buildRequest(method: .get,
+                                    header: Header.GETHeader(accessToken: token).buildHeader(),
+                                    baseURL: SpotifyBaseURL.APICallBase.rawValue,
+                                    path: EndingPath.myTop(type: .tracks).buildPath(), params: Parameters.timeRange(range: "long_term").buildParameters()) {
+                                        (result) in
+                                        
+                                        result.decoding(UserTopTracks.self, completion: completions)
+                                        
+        }
+        
+    }
+    
+    static func getPlaylist(token: String, playlistId: String, completions: @escaping (Result<Playlist, Error>) -> Void) -> Request {
+
+        let apiClient = APIClient(configuration: URLSessionConfiguration.default)
+
+        apiClient.call(request: .checkExpiredToken(token: token, completion: { (expiredToken) in
+            switch expiredToken {
+            case .failure(_):
+                print("token still valid")
+            case .success(_):
+                print("token expired")
+                apiClient.call(request: refreshTokenToAccessToken(completion: { (refreshToken) in
+                    switch refreshToken {
+                    case .failure(_):
+                        print("no refresh token returned")
+                    case .success(let refresh):
+                        print(refresh.accessToken)
+                        UserDefaults.standard.set(refresh.accessToken, forKey: "token")
+                        apiClient.call(request: .getPlaylist(token: refresh.accessToken, playlistId: playlistId, completions: completions))
+                    }
+                })!)
+            }
+        }))
+
+        return Request.buildRequest(method: .get,
+                                    header: Header.GETHeader(accessToken: token).buildHeader(),
+                                    baseURL: SpotifyBaseURL.APICallBase.rawValue,
+                                    path: EndingPath.playlist(id: playlistId).buildPath()) { (result) in
+
+                                        result.decoding(Playlist.self, completion: completions)
+
+        }
+
+    }
+    
 }
 
 

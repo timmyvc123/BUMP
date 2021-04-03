@@ -16,4 +16,6 @@ pod 'PTCardTabBar'
 
 pod 'MultiSlider'
 
+pod 'iCarousel'
+
 end

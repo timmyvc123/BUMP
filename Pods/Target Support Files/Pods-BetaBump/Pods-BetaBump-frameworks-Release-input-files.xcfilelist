@@ -10,4 +10,5 @@ ${BUILT_PRODUCTS_DIR}/PopBounceButton/PopBounceButton.framework
 ${BUILT_PRODUCTS_DIR}/Shuffle-iOS/Shuffle_iOS.framework
 ${BUILT_PRODUCTS_DIR}/Spartan/Spartan.framework
 ${BUILT_PRODUCTS_DIR}/SweeterSwift/SweeterSwift.framework
+${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework
 ${BUILT_PRODUCTS_DIR}/pop/pop.framework

@@ -9,7 +9,8 @@ import UIKit
 import Kingfisher
 import Spartan
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
     
     private let client = APIClient(configuration: URLSessionConfiguration.default)
     
@@ -19,33 +20,43 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var likedSongsLabel: UILabel!
     @IBOutlet weak var superLikedSongsLabel: UILabel!
+    @IBOutlet weak var topArtistsCollectionView: UICollectionView!
+    @IBOutlet weak var topTracksCollectionView: UICollectionView!
+    
+    var topArtistsArray: [TopArtists] = []
+    var topTracksArray: [TopTracks] = []
     
     let token = (UserDefaults.standard.string(forKey: "token"))
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchTopArtists()
+        fetchTopTracks()
+        
+        topArtistsCollectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
+        topTracksCollectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
+        
         Spartan.authorizationToken = token
-        likedSongsLabel.isHidden = true
-        superLikedSongsLabel.isHidden = true
-//        fetchUserInfo()
         getUser()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         AudioPlayer.shared.player?.pause()
-
+        getUser()
     }
+    
+    //MARK: - get User's info
+    
     
     func getUser() {
         _ = Spartan.getMe { (user) in
             self.displaynameLabel.text = user.displayName
             self.usernameLabel.text = user.id as? String
             let followers = user.followers!.total!
-            self.followersLabel.text = "\(followers) \n Followers"
+            self.followersLabel.text = "\(followers)\nFollowers"
             
-            let profilePicURL = URL(string: (user.images?.first?.url)!)
+            let profilePicURL = URL(string: (user.images?.first?.url)!)!
             
             self.profileImageView.kf.setImage(with: profilePicURL) { (result) in
                 switch result {
@@ -60,46 +71,131 @@ class ProfileViewController: UIViewController {
             }
             
             let defaults = UserDefaults.standard
-            let id = defaults.string(forKey: "playlistId")
+            let likesId = defaults.string(forKey: "likesPlaylistId")
+            let superLikesId = defaults.string(forKey: "superLikesPlaylistId")
             
-//
-//            _ = Spartan.getUsersPlaylist(userId: user.id, playlistId: id,  success: { (playlist) in
-//
-//
-//
-//            }, failure: { (error) in
-//                print("Error getting Playlist in profile view: ", error)
-//            })
-
+            _ = Spartan.getPlaylistTracks(userId: user.id as! String, playlistId: likesId!, success: { (pagingObject) in
+                
+                self.likedSongsLabel.text = "\(pagingObject.items.count)\nLikes"
+                
+            }, failure: { (error) in
+                print("Error getting playlist tracks for liekd playlist: ", error)
+            })
+            
+            _ = Spartan.getPlaylistTracks(userId: user.id as! String, playlistId: superLikesId!, success: { (pagingObject) in
+                
+                self.superLikedSongsLabel.text = "\(pagingObject.items.count)\nSuper Likes"
+                
+            }, failure: { (error) in
+                print("Error getting playlist tracks for liekd playlist: ", error)
+            })
             
         } failure: { (error) in
             print("Error getting user's Info ", error)
         }
     }
     
-
+    //MARK: - User's Top Artists
     
-    private func fetchUserInfo() {
-        var user: UserModel!
+    func fetchTopArtists() {
         
-        client.call(request: .getUserInfo(token: token!, completion: { (result) in
-            
+        client.call(request: .getUserTopArtists(token: token!, completions: { [self] (result) in
             switch result {
             case .failure(let error):
-                print("this is the error", error)
-            case .success(let currUser):
-                DispatchQueue.main.async {
+                print(error)
+                print("got back completion; error")
+            case .success(let topArtists):
+                
+                for artist in topArtists.items {
                     
-                    print("Current user: ", currUser)
-                    user = currUser
-                    self.displaynameLabel.text = user.displayName
-                    print("This is the username:", user.displayName)
-
+                    let artistImageURL = artist.images[0].url
+                    
+                    let newArtist = TopArtists(name: artist.name,
+                                          imageURL: artistImageURL)
+                    
+                    DispatchQueue.main.async {
+                        self.topArtistsArray.append(newArtist)
+                        self.topArtistsCollectionView.reloadData()
+                        
+                    }
                 }
             }
         }))
     }
+    
+    //MARK: - User's top tracks
+    
+    func fetchTopTracks() {
+        
+        client.call(request: .getUserTopTracks(token: token!, completions: { (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let tracks):
+                
+                for track in tracks.items {
+                    
+                    let trackImageURL = track.album?.images[0].url
+                    
+                    let newTrack = TopTracks(name: track.name,
+                                        imageURL: trackImageURL!)
+                    
+                    DispatchQueue.main.async {
+                        self.topTracksArray.append(newTrack)
+                        self.topTracksCollectionView.reloadData()
+                        
+                    }
+                }
+                
+            }
+        }))
+    }
+    
+    
+    
+    
+    //MARK: CollectionView Delegate Funcs
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        if collectionView == topArtistsCollectionView {
+            return topArtistsArray.count
+        } else {
+            return topTracksArray.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView == topArtistsCollectionView {
+            
+            let artistCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopArtistsCollectionViewCell", for: indexPath) as! TopArtistsCollectionViewCell
+            let url = topArtistsArray[indexPath.row].imageURL
+            artistCell.artistImageView.kf.setImage(with: url)
+            artistCell.artistLabel.text = topArtistsArray[indexPath.row].name
+            
+            artistCell.artistLabel.adjustsFontSizeToFitWidth = true
+            artistCell.artistLabel.minimumScaleFactor = 0.2
 
+            return artistCell
+            
+        } else {
+
+            let trackCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopTracksCollectionViewCell", for: indexPath) as! TopTracksCollectionViewCell
+            let url = topTracksArray[indexPath.row].imageURL
+            trackCell.trackImageView.kf.setImage(with: url)
+            trackCell.trackLabel.text = topTracksArray[indexPath.row].name
+            
+            trackCell.trackLabel.adjustsFontSizeToFitWidth = true
+            trackCell.trackLabel.minimumScaleFactor = 0.2
+
+            return trackCell
+        }
+        
+    }
+    
+    //MARK: - Helpers
+    
 }
 
 extension UIImage {

@@ -25,7 +25,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     @IBOutlet weak var backgroundImage: UIImageView!
     
     @IBOutlet weak var tableView: UIView!
-    let height: CGFloat = 600
+    let height: CGFloat = 400
     var transparentView = UIView()
     
     private let cardStack = SwipeCardStack()
@@ -73,6 +73,8 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         layoutCardStackView()
         configureBackgroundGradient()
         
+        testTrack()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,6 +86,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
             displayPlaylistCreationMessage()
         }
     }
+    
     
     //MARK: - Configuration
     
@@ -162,15 +165,15 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         AudioPlayer.shared.player?.stop()
         
         let undoIndex = cardModels[cardStack.topCardIndex!]
-
+        
         DispatchQueue.main.async {
-
+            
             if undoIndex.previewURL != nil {
                 AudioPlayer.shared.downloadFileFromURL(url: undoIndex.previewURL!)
             } else {
                 AudioPlayer.shared.player?.stop()
             }
-
+            
         }
         
     }
@@ -178,14 +181,14 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     @IBAction func filterButtonTapped(_ sender: Any) {
         print("filter tapped")
         
-//        view.sendSubviewToBack()
+        //        view.sendSubviewToBack()
         
         let window = UIWindow.key
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         transparentView.frame = self.view.frame
         window?.addSubview(transparentView)
         window?.addSubview(filterSlideUpContainerView)
-//        window?.bringSubviewToFront(filterSlideUpContainerView)
+        //        window?.bringSubviewToFront(filterSlideUpContainerView)
         
         let screenSize = UIScreen.main.bounds.size
         filterSlideUpContainerView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: height)
@@ -207,12 +210,25 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0
-                        self.filterSlideUpContainerView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.height)
+            self.filterSlideUpContainerView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.height)
         }, completion: nil)
     }
     
     
     //MARK: API Request
+    
+    func testTrack() {
+        let randomOffset = Int.random(in: 0..<1000)
+        
+        _ = Spartan.search(query: getRandomSearch(), type: .track, market: .us, limit: 1, offset: randomOffset, success: { (pagingObject: PagingObject<SimplifiedTrack>) in
+            
+            //            print("Spartan Search Random song: ", pagingObject.items.toJSONString())
+            
+            
+        }, failure: { (error) in
+            print("Spartant search error: ", error)
+        })
+    }
     
     func fetchAndConfigureSearch() {
         
@@ -230,7 +246,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                 
                 for track in something.tracks.items {
                     
-                    let newTrack = SimpleTrack(artistName: track.album.artists.first?.name,
+                    let newTrack = SimpleTrack(artistName: track.album.artists[0].name,
                                                id: track.id,
                                                title: track.name,
                                                previewURL: track.previewUrl,
@@ -252,9 +268,6 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                         } else {
                             AudioPlayer.shared.downloadFileFromURL(url: songModel.previewURL!)
                         }
-                        
-                        
-                        
                     }
                 }
                 
@@ -275,25 +288,39 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     func createPlaylist() {
         
-        let name = "BMP"
+        let likesName = "BUMP"
+        let superLikesName = "BUMP SUPER LIKES"
         
         //get current user
         _ = Spartan.getMe { (user) in
             
-            //create playlist
-            _ = Spartan.createPlaylist(userId: user.id as! String, name: name, isPublic: true) { (playlist) in
+            //create likes playlist
+            _ = Spartan.createPlaylist(userId: user.id as! String, name: likesName, isPublic: true) { (playlist) in
                 
                 let playlistId = playlist.id
                 
                 let defaults = UserDefaults.standard
-                defaults.setValue(playlistId, forKey: "playlistId")
-                //                defaults.synchronize()
+                defaults.setValue(playlistId, forKey: "likesPlaylistId")
                 
-                //                print("Playlsit: \(playlist.name), \(playlistId), \(playlist.description)" )
                 
             } failure: { (error) in
-                print("Error creating playlist: ", error)
+                print("Error creating likes playlist: ", error)
             }
+            
+            //create super likes playlist
+            _ = Spartan.createPlaylist(userId: user.id as! String, name:superLikesName, isPublic: true) { (playlist) in
+                
+                let playlistId = playlist.id
+                
+                let defaults = UserDefaults.standard
+                defaults.setValue(playlistId, forKey: "superLikesPlaylistId")
+                
+                
+            } failure: { (error) in
+                print("Error creating super likes playlist: ", error)
+            }
+            
+            
             
         } failure: { (error) in
             print("Getting User Info Error: ", error)
@@ -301,9 +328,9 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     }
     
     func displayPlaylistCreationMessage() {
-        let message = "BMP would like to create a playlist on your Spotify account so your liked songs can be autmatically added to it."
+        let message = "Bump would like to create 2 playlists on your Spotify account so your liked/super liked songs can be autmatically added to it."
         
-        let alert = UIAlertController(title: "BMP Playlist", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Bump Playlists", message: message, preferredStyle: .alert)
         
         let declineAction = UIAlertAction(title: "Decline", style: .destructive) { (action) in
             print("Declined")
@@ -320,19 +347,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     }
     
     //MARK: Helpers
-    
-    //    func createSoundButton() {
-    //        soundButton.addTarget(self, action: #selector(soundButtonTapped), for: .touchUpInside)
-    //        if let image = UIImage(named: "soundOn") {
-    //            soundButton.setImage(image, for: .normal)
-    //            soundButton.imageView?.contentMode = .scaleAspectFit
-    //            soundButton.frame = CGRect(x: 325, y: 100, width: 37, height: 37)
-    //            soundButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
-    //        }
-    //        view.addSubview(soundButton)
-    //        UIWindow.key?.addSubview(soundButton)
-    //    }
-    
+
     func getRandomLetter(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyz"
         return String((0..<length).map { _ in letters.randomElement()! })
@@ -354,7 +369,6 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     
     func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
         let card = SwipeCard()
-        card.content?.widthAnchor
         card.footerHeight = 100
         
         card.swipeDirections = [.left, .up, .right]
@@ -390,28 +404,39 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         print("Swiped \(direction) on \(cardModels[index].songName)")
         
         let defaults = UserDefaults.standard
-        let id = defaults.string(forKey: "playlistId")
+        let likesId = defaults.string(forKey: "likesPlaylistId")
+        let superLikesId = defaults.string(forKey: "superLikesPlaylistId")
         
         AudioPlayer.shared.player?.stop()
         
         let trackUri = self.cardModels[index].URI
         
-        if direction == .right || direction == .up {
+        _ = Spartan.getMe(success: { (user) in
             
-            _ = Spartan.getMe(success: { (user) in
+            if direction == .right {
                 
-                _ = Spartan.addTracksToPlaylist(userId: user.id as! String, playlistId: id!, trackUri: trackUri, success: { (snapshot) in
+                _ = Spartan.addTracksToPlaylist(userId: user.id as! String, playlistId: likesId!, trackUri: trackUri, success: { (snapshot) in
                     
-                    print("Song added to playlist")
+                    print("Song added to likes")
                     
                 }, failure: { (error) in
-                    print("Error adding track to playlist: ", error)
+                    print("Error adding track to likes playlist: ", error)
                 })
+            } else if direction == .up {
                 
-            }, failure: { (error) in
-                print("failed to get user: ", error)
-            })
-        }
+                _ = Spartan.addTracksToPlaylist(userId: user.id as! String, playlistId: superLikesId!, trackUri: trackUri, success: { (snapshot) in
+                    
+                    print("Song added to super likes")
+                    
+                }, failure: { (error) in
+                    print("Error adding track to super likes playlist: ", error)
+                })
+            }
+            
+        }, failure: { (error) in
+            print("failed to get user: ", error)
+        })
+        
         
         
     }
@@ -420,22 +445,22 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         print("Card tapped")
         
         var topCard = cardModels[cardStack.topCardIndex!]
-
+        
         DispatchQueue.main.async {
-
+            
             if topCard.previewURL != nil {
-
+                
                 if AudioPlayer.shared.player.isPlaying {
                     AudioPlayer.shared.player.pause()
                 } else {
-//                    AudioPlayer.shared.player.play()
+                    //                    AudioPlayer.shared.player.play()
                     AudioPlayer.shared.downloadFileFromURL(url: topCard.previewURL!)
                 }
                 
             } else {
                 AudioPlayer.shared.player?.stop()
             }
-
+            
         }
     }
     
