@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		246CA663261ABCDD006BADE2 /* TuneableTrackAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246CA662261ABCDD006BADE2 /* TuneableTrackAttribute.swift */; };
 		246D2D9E25DE3F22005C2EF1 /* SearchTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2D9D25DE3F22005C2EF1 /* SearchTracks.swift */; };
 		246D2DA125DE3F91005C2EF1 /* ArtistTopTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA025DE3F91005C2EF1 /* ArtistTopTracks.swift */; };
 		246D2DA525DE4B60005C2EF1 /* SimpleTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		23E59720E2CA16D06948CD31 /* Pods-BetaBump.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetaBump.debug.xcconfig"; path = "Target Support Files/Pods-BetaBump/Pods-BetaBump.debug.xcconfig"; sourceTree = "<group>"; };
+		246CA662261ABCDD006BADE2 /* TuneableTrackAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneableTrackAttribute.swift; sourceTree = "<group>"; };
 		246D2D9D25DE3F22005C2EF1 /* SearchTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTracks.swift; sourceTree = "<group>"; };
 		246D2DA025DE3F91005C2EF1 /* ArtistTopTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTopTracks.swift; sourceTree = "<group>"; };
 		246D2DA425DE4B60005C2EF1 /* SimpleTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTrack.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				24D9303A25DB79CC00630B06 /* ExpiredTokens.swift */,
 				24D9303D25DB79D400630B06 /* Tokens.swift */,
 				24D9304025DB7A5100630B06 /* UserModel.swift */,
+				246CA662261ABCDD006BADE2 /* TuneableTrackAttribute.swift */,
 				246D2D9D25DE3F22005C2EF1 /* SearchTracks.swift */,
 				246D2DA025DE3F91005C2EF1 /* ArtistTopTracks.swift */,
 			);
@@ -416,6 +419,7 @@
 				24D9302D25DB07C500630B06 /* SpotifyBaseURL.swift in Sources */,
 				2480CA1925E57FA8000F1FD5 /* TinderCardContent.swift in Sources */,
 				24D9303325DB07D800630B06 /* APIClient.swift in Sources */,
+				246CA663261ABCDD006BADE2 /* TuneableTrackAttribute.swift in Sources */,
 				246D2DA825DE4BCA005C2EF1 /* Playlist.swift in Sources */,
 				246D2DA525DE4B60005C2EF1 /* SimpleTrack.swift in Sources */,
 				2480CA2425E5806A000F1FD5 /* CardModel.swift in Sources */,

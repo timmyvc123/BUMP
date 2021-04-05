@@ -164,6 +164,43 @@ extension Request {
         
     }
     
+    static func getRecommendations(token: String, limit: Int, market: String?, minAttributes: [(TuneableTrackAttribute, Float)]?, maxAttributes: [(TuneableTrackAttribute, Float)]?, targetAttributes: [(TuneableTrackAttribute, Float)]?, seedArtists: [String]?, seedGenres: [String]?, seedTracks: [String]?, completion: @escaping (Any) -> Void) -> Request {
+        
+        let apiClient = APIClient(configuration: URLSessionConfiguration.default)
+        
+        apiClient.call(request: .checkExpiredToken(token: token, completion: { (expiredToken) in
+            switch expiredToken {
+            case .failure(_):
+                print("token still valid")
+            case .success(_):
+                print("token expired")
+                apiClient.call(request: refreshTokenToAccessToken(completion: { (refreshToken) in
+                    switch refreshToken {
+                    case .failure(_):
+                        print("no refresh token returned")
+                    case .success(let refresh):
+                        UserDefaults.standard.set(refresh.accessToken, forKey: "token")
+                        apiClient.call(request: .getRecommendations(token: refresh.accessToken, limit: limit, market: market, minAttributes: minAttributes, maxAttributes: maxAttributes, targetAttributes: targetAttributes, seedArtists: seedArtists, seedGenres: seedGenres, seedTracks: seedTracks, completion: completion)
+                    }
+                })!)
+            }
+        }))
+        
+        return Request.buildRequest(method: .get,
+                             header: Header.GETHeader(accessToken: token).buildHeader(),
+                             baseURL: SpotifyBaseURL.APICallBase.rawValue,
+                             path: EndingPath.search(q: q, type: type, market: market, limit: limit, offset: offset).buildPath()) { (result) in
+            
+            switch type {
+            case .track:
+                result.decoding(SearchTracks.self, completion: completion)
+            default:
+                print("this search type not implemented yet111")
+            }
+        }
+        
+    }
+    
     static func getUserTopArtists(token: String, completions: @escaping (Result<UserTopArtists, Error>) -> Void) -> Request {
         let apiClient = APIClient(configuration: URLSessionConfiguration.default)
         

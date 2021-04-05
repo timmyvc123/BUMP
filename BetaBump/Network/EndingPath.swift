@@ -19,6 +19,7 @@ enum EndingPath {
     case myTop(type: MyTopType)
     case tracks(ids: [String])
     case createPlaylist(id: String)
+    case getRecommendations(limit: Int, market: String?, minAttributes: [(TuneableTrackAttribute, Float)]?, maxAttributes: [(TuneableTrackAttribute, Float)]?, targetAttributes: [(TuneableTrackAttribute, Float)]?, seedArtists: [String]?, seedGenres: [String]?, seedTracks: [String]?)
     
     func buildPath() -> String {
         switch self {
@@ -45,7 +46,23 @@ enum EndingPath {
             return "tracks/?ids=\(ids.joined(separator: ","))"
         case .createPlaylist(let id):
             return "users/\(id)/playlists"
+        case .getRecommendations(let limit, let market, let mminAttributes, let maxAttributes, let targetAttributes, let seedArtists, let seedGenres, let seedTrack):
+            return "recommendations?limit=\(limit)&market=\(market)"
+//        recommendations?limit=2&market=US&max_energy=0.8&max_popularity=70&min_energy=0.4&min_popularity=30&seed_tracks=6iKFUkq6GmaW4UQGED1tSd&target_energy=0.6&target_popularity=50
             
+        }
+    }
+    
+    private static func checkOptionalTuneableTrackAttributeTupleParamAddition(prefix: String,
+                                                                             attributes: [(TuneableTrackAttribute, Float)]?,
+                                                                             parameters: inout [String: Any]) {
+        
+        guard let attributes = attributes else {
+            return
+        }
+        
+        for (attribute, value) in attributes {
+            parameters["\(prefix)_\(attribute.rawValue)"] = value
         }
     }
     

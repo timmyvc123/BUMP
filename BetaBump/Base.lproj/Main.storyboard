@@ -462,8 +462,8 @@
                                                     <rect key="frame" x="31" y="10" width="353" height="119"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stream Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lyu-9k-z3p">
-                                                    <rect key="frame" x="37" y="14" width="137" height="29"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Popularity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lyu-9k-z3p">
+                                                    <rect key="frame" x="45" y="13" width="137" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="19"/>
                                                     <color key="textColor" name="backgroundColor"/>
@@ -654,6 +654,14 @@
             <point key="canvasLocation" x="1960.8695652173915" y="-912.05357142857133"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="EDa-lx-Wkz">
+            <size key="intrinsicContentSize" width="-1" height="63"/>
+        </designable>
+        <designable name="T1T-0N-TdN">
+            <size key="intrinsicContentSize" width="-1" height="63"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ConnectSpotify" width="806" height="141"/>
         <image name="applyButton" width="174" height="35"/>
