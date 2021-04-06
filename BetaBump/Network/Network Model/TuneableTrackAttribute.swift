@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum TuneableTrackAttribute: String {
+public enum TuneableTrackAttribute: String, Model {
     case acousticness = "acousticness"
     case danceability = "danceability"
     case durationMs = "duration_ms"

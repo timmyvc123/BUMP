@@ -67,14 +67,12 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         buttonStackView.delegate = self
         
         fetchAndConfigureSearch()
+//        testTrack()
         
         configureNavigationBar()
         //        layoutButtonStackView()
         layoutCardStackView()
         configureBackgroundGradient()
-        
-        testTrack()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -218,13 +216,13 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     func testTrack() {
         print("Testtrack()........")
         
-//        let comeDown = "0ceIFiPqnnK1v4AF76hUPf"
-//        let andersonPaak = "3jK9MiCrA42lLAdMGUZpwa"
+        //        let comeDown = "0ceIFiPqnnK1v4AF76hUPf"
+        //        let andersonPaak = "3jK9MiCrA42lLAdMGUZpwa"
         
-        let minAttributes: [(TuneableTrackAttribute, Float)] = [(.energy, 0.4),(.popularity, 30)]
-        let maxAttributes: [(TuneableTrackAttribute, Float)] = [(.energy, 0.8),(.popularity, 70)]
+        let minAttributes: [(TuneableTrackAttribute, Float)]? = [(.energy, 0.4),(.popularity, 30)]
+        let maxAttributes: [(TuneableTrackAttribute, Float)]? = [(.energy, 0.8),(.popularity, 70)]
         
-        let targetAttributes: [(TuneableTrackAttribute, Float)] = [(.energy, 0.6),(.popularity, 50)]
+        let targetAttributes: [(TuneableTrackAttribute, Float)]? = [(.energy, 0.6),(.popularity, 50)]
         
         let oldModelsCount = self.cardModels.count
         
@@ -235,13 +233,13 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                 
                 _ = Spartan.getTrack(id: track.id as! String, market: .us, success: { (track) in
                     // Do something with the track
-//                    print("\(track.id) Popularity: ", track.popularity)
+                    //                    print("\(track.id) Popularity: ", track.popularity)
                     
                     let seedTracks = [pagingObject.items[0].id]
                     
-                    _ = Spartan.getRecommendations(limit: 2, market: .us, minAttributes: minAttributes, maxAttributes: maxAttributes, targetAttributes: targetAttributes, seedTracks: seedTracks as? [String], success: { (recomendationsObject) in
+                    _ = Spartan.getRecommendations(limit: 2, market: .us, minAttributes: [(.energy, 0.4),(.popularity, 30)], maxAttributes: [(.energy, 0.8),(.popularity, 70)], targetAttributes: [(.energy, 0.6),(.popularity, 50)], seedTracks: seedTracks as? [String], success: { (recomendationsObject) in
                         
-//                        print("recomneded object: ", recomendationsObject.tracks.toJSON())
+                        //                        print("recomneded object: ", recomendationsObject.tracks.toJSON())
                         for track in recomendationsObject.tracks {
                             
                             let tempURL = URL(string: "https://i.scdn.co/image/ab67616d0000b2731e439ac0ed08d612808f7122")
@@ -249,22 +247,22 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                             
                             self.cardModels.append(trackModel)
                             print("Current card models array count in request: ", self.cardModels.count)
-
+                            
                             print("Current card models array: ", self.cardModels)
                             
                             DispatchQueue.main.async {
-                                                                
+                                
                                 if trackModel.previewURL == nil {
                                     AudioPlayer.shared.player?.stop()
                                 } else {
                                     AudioPlayer.shared.downloadFileFromURL(url: trackModel.previewURL!)
                                 }
                             }
-
+                            
                             
                         }
-
-
+                        
+                        
                     }, failure: { (error) in
                         print("Error getting recomendations: ", error)
                     })
@@ -272,7 +270,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
                 }, failure: { (error) in
                     print("Get Track Error: ", error)
                 })
-
+                
             }
             
             let newModelsCount = self.cardModels.count
@@ -280,40 +278,40 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
             
             DispatchQueue.main.async {
                 self.cardStack.appendCards(atIndices: newIndices)
-//                print("Card stack count: ", self.cardStack)
+                //                print("Card stack count: ", self.cardStack)
             }
         }, failure: { (error) in
             print("Spartan search track error: ",error)
         })
         
-//        _ = Spartan.getRecommendations(limit: 5, market: .us, minAttributes: minAttributes, maxAttributes: maxAttributes, targetAttributes: targetAttributes, seedTracks: [comeDown], success: { (recomendationsObject) in
-//
-//            print("reccomneded object: ", recomendationsObject.tracks.toJSON())
-//
-//        }, failure: { (error) in
-//            print("Error getting recomendations: ", error)
-//        })
-                
-//        _ = Spartan.getTrack(id: comeDown, market: .us, success: { (track) in
-//            // Do something with the track
-//            print("\(track.name) Popularity: ", track.popularity)
-//        }, failure: { (error) in
-//            print("Get Track Error: ", error)
-//        })
+        //        _ = Spartan.getRecommendations(limit: 5, market: .us, minAttributes: minAttributes, maxAttributes: maxAttributes, targetAttributes: targetAttributes, seedTracks: [comeDown], success: { (recomendationsObject) in
+        //
+        //            print("reccomneded object: ", recomendationsObject.tracks.toJSON())
+        //
+        //        }, failure: { (error) in
+        //            print("Error getting recomendations: ", error)
+        //        })
         
-//        _ = Spartan.getAudioAnaylsis(trackId: comeDown, success: { (audiAnalysis) in
-//            // Do something with the audio analysis
-//            print("Audio Analysis for track: Loudness - ", audiAnalysis.track.loudness)
-//        }, failure: { (error) in
-//            print("AUdio Analysis error: ", error)
-//        })
-//
-//        _ = Spartan.getAudioFeatures(trackId: comeDown, success: { (audioFeaturesObject) in
-//            // Do something with the audio features object
-//            print("Audio Features for track: Dancability - ", audioFeaturesObject.danceability)
-//        }, failure: { (error) in
-//            print("Error for audio features: ", error)
-//        })
+        //        _ = Spartan.getTrack(id: comeDown, market: .us, success: { (track) in
+        //            // Do something with the track
+        //            print("\(track.name) Popularity: ", track.popularity)
+        //        }, failure: { (error) in
+        //            print("Get Track Error: ", error)
+        //        })
+        
+        //        _ = Spartan.getAudioAnaylsis(trackId: comeDown, success: { (audiAnalysis) in
+        //            // Do something with the audio analysis
+        //            print("Audio Analysis for track: Loudness - ", audiAnalysis.track.loudness)
+        //        }, failure: { (error) in
+        //            print("AUdio Analysis error: ", error)
+        //        })
+        //
+        //        _ = Spartan.getAudioFeatures(trackId: comeDown, success: { (audioFeaturesObject) in
+        //            // Do something with the audio features object
+        //            print("Audio Features for track: Dancability - ", audioFeaturesObject.danceability)
+        //        }, failure: { (error) in
+        //            print("Error for audio features: ", error)
+        //        })
         
     }
     
@@ -441,7 +439,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         alert.addAction(acceptAction)
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     func getRandomLetter(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyz"
         return String((0..<length).map { _ in letters.randomElement()! })
@@ -473,7 +471,7 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
         let model = cardModels[index]
         
         print("Current card models array count in cardstack: ", self.cardModels.count)
-
+        
         
         card.content = CardContentView(withImageURL: model.imageURL)
         
@@ -482,14 +480,14 @@ class MainViewController: UIViewController, ButtonStackViewDelegate, SwipeCardSt
     }
     
     func numberOfCards(in cardStack: SwipeCardStack) -> Int {
-//        testTrack()
+        //        testTrack()
         print("numberOfCards...", cardModels.count)
         return cardModels.count
     }
     
     func didSwipeAllCards(_ cardStack: SwipeCardStack) {
         fetchAndConfigureSearch()
-//        testTrack()
+        //        testTrack()
         
         print("Swiped all cards!")
     }

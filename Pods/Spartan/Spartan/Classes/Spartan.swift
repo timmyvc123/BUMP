@@ -682,7 +682,7 @@ public class Spartan: NSObject {
     /* API Documentation: https://developer.spotify.com/web-api/get-recommendations */
     
     @discardableResult
-    public class func getRecommendations(limit: Int = 20,
+    public class func getRecommendations(limit: Int = 1,
                                          market: CountryCode? = nil,
                                          minAttributes: [(TuneableTrackAttribute, Float)]? = nil,
                                          maxAttributes: [(TuneableTrackAttribute, Float)]? = nil,
